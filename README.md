@@ -1,24 +1,33 @@
-# New Project
+# Find 10 differences
+This is a simple and relaxing game to find 10 differences between two images.  
+It has no database, so no data will be collected. That means that there will be no contest between players.  
+No time preasure.   
+Helper will be initiated if program will indicate that player is stuck.  
+Play some background music, have some animations.  
+Canvas is the main driver here.
 
-> ✨ Bootstrapped with Create Snowpack App (CSA).
 
-## Available Scripts
-
-### npm start
-
-Runs the app in the development mode.
-Open http://localhost:8080 to view it in the browser.
-
-The page will reload if you make edits.
-You will also see any lint errors in the console.
-
-### npm run build
-
-Builds a static copy of your site to the `build/` folder.
-Your app is ready to be deployed!
-
-**For the best production performance:** Add a build bundler plugin like [@snowpack/plugin-webpack](https://github.com/snowpackjs/snowpack/tree/main/plugins/plugin-webpack) or [snowpack-plugin-rollup-bundle](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle) to your `snowpack.config.mjs` config file.
-
-### Q: What about Eject?
-
-No eject needed! Snowpack guarantees zero lock-in, and CSA strives for the same.
+## The approach
+Since there is no database, dynamick file loading will be implemented. We would like to avoid of downloading everything to user's computer. That means that user will have to solve current task to be able to move to the fallowing one. File names will be encoded. By doing some wierd background magic it will decode next task filename.
+# New project setup
+1. Create project:
+``` npx create-snowpack-app reaction-time --template @snowpack/app-template-blank-typescript ```
+2. Add webpack:
+``` npm install --save-dev snowpack-plugin-webpack5 ```
+3. Add jquery:
+``` npm install --save-dev jquery ```
+4. Add jquery types:
+``` npm i --save-dev @types/jquery ```
+5. Add jquery-ui:
+``` npm i --save-dev jquery-ui ```
+6. Add jquery-ui types:
+``` npm install --save-dev @types/jqueryui ```
+7. Define old browser support:
+WebPack will support old browsers when adding code below in **package.json**
+```
+ "browserslist": [
+    "defaults"
+  ]
+```
+[browserslist](https://github.com/browserslist/browserslist)  
+[discussions/1569](https://github.com/snowpackjs/snowpack/discussions/1569)

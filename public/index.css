@@ -1,14 +1,16 @@
-#img {
-  display: block;
-  margin: auto;
-  height: 128px;
-  width: 128px;
-  padding: 2rem;
+canvas {
+  margin: 2px auto;
+  border: 1px solid brown;
 }
 
-#canvas {
-  display: block;
-  margin: 2rem auto;
-  width: 540px;
-  height: 540px;
+.screen-wrapper{
+  width: 1208px;
+  margin: auto;
+
+}
+
+@media (max-width:1220px) {
+  .screen-wrapper{
+    width: 602px;
+  }
 }

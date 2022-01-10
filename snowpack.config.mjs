@@ -12,6 +12,15 @@ export default {
         ...(process.versions.pnp ? { tsc: 'yarn pnpify tsc' } : {}),
       },
     ],
+    [
+      'snowpack-plugin-webpack5',
+      {
+        outputPattern: {
+          css: 'css/[name].bundle.css',
+          js: 'js/[name].bundle.js',
+        },
+      },
+    ]
   ],
   routes: [
     /* Enable an SPA Fallback in development: */
