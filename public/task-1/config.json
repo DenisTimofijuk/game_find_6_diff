@@ -1,0 +1,14 @@
+{
+    "main-image-a":"/task-1/img/milda-a.png",
+    "main-image-b":"/task-1/img/milda-b.png",
+    "image-alien":"/task-1/img/alien.png",
+    "image-ship":"/task-1/img/ship.png",
+    "audio": {
+        "background-audio": ""
+    },
+    "pins":[
+        289, 130, 43, 49,
+        364, 317, 30, 24,
+        219, 448, 27, 24
+    ]
+}
