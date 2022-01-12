@@ -29,25 +29,42 @@ class Screen {
     canvas: HTMLCanvasElement;
     context: CanvasRenderingContext2D | null;
     mark: Marker;
-    buffer?: HTMLImageElement;
+    originalImage?: HTMLImageElement;
+    bufferCanv: HTMLCanvasElement;
     constructor(id: string) {
         this.canvas = document.getElementById(id) as HTMLCanvasElement;
         this.context = this.canvas.getContext('2d');
+        this.bufferCanv = document.createElement('canvas');
+        this.bufferCanv.width = this.canvas.width;
+        this.bufferCanv.height = this.canvas.height;
 
         this.mark = new Marker(this.context!);
     }
 
     init(image: HTMLImageElement){
-        this.save(image);
+        this.saveOriginalImage(image);
         this.draw(image);
     }
 
-    save(image: HTMLImageElement){
-        this.buffer = image;
+    saveOriginalImage(image: HTMLImageElement){
+        this.originalImage = image;
     }
 
     draw(image: HTMLImageElement) {
         this.context?.drawImage(image, 0, 0)
+    }
+
+    saveBuffer(){
+        const ctx = this.bufferCanv.getContext('2d');
+        ctx?.drawImage(this.canvas, 0, 0);
+    }
+
+    drawBuffer(){
+        this.context?.drawImage(this.bufferCanv, 0, 0);
+    }
+
+    clear(){
+        this.context?.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     listenEvent(flag:boolean, callback:(ev: MouseEvent)=>void){
@@ -56,7 +73,7 @@ class Screen {
 
         this.canvas.addEventListener('contextmenu', function(this, ev){
             ev.preventDefault()
-            flag && self.draw(self.buffer!);
+            flag && self.draw(self.originalImage!);
         });
 
         if(flag){
@@ -78,5 +95,7 @@ export default class Compositor {
 
     removeDiff(x:number, y:number, w:number, h:number){
         this.screen_a.context?.drawImage(this.screen_b.canvas, x, y, w, h, x, y, w, h);
+        this.screen_a.saveBuffer();
+        this.screen_b.saveBuffer();
     }
 }
