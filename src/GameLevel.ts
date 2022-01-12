@@ -7,7 +7,7 @@ export default class GameLevel<T extends JSON_object> {
     indicationPlaceHolder: HTMLElement;
     bufferPins: string[];
     searchablePins: string[];
-    constructor(private configData: T) {
+    constructor(public configData: T) {
         this.compositor = new Compositor();
         this.totlaDiffs = 6;
         this.indicationPlaceHolder = document.getElementById('diff-indicator')!;
@@ -62,6 +62,12 @@ export default class GameLevel<T extends JSON_object> {
             this.compositor.removeDiff(place[0], place[1], place[2], place[3]);
             this.indicationPlaceHolder.innerText = '' + this.totlaDiffs;
         }
+
+        this.customHanlder();
+    }
+
+    customHanlder(){
+
     }
 }
 
