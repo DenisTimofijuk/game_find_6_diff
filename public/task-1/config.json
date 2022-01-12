@@ -1,8 +1,10 @@
 {
     "main-image-a":"/task-1/img/milda-a.png",
     "main-image-b":"/task-1/img/milda-b.png",
-    "image-alien":"/task-1/img/alien.png",
-    "image-ship":"/task-1/img/ship.png",
+    "images":{
+        "image-alien":"/task-1/img/alien.png",
+        "image-ship":"/task-1/img/ship.png"
+    },
     "audio": {
         "background-audio": ""
     },

@@ -1,3 +1,4 @@
+type AudioName = string;
 export default class AudioBoard {
     buffers: Map<AudioName, AudioBuffer>;
   

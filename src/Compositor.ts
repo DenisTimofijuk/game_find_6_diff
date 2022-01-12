@@ -50,9 +50,9 @@ class Screen {
         this.context?.drawImage(image, 0, 0)
     }
 
-    listenEvent(flag:boolean, callback:(this: HTMLCanvasElement, ev: MouseEvent)=>void){
+    listenEvent(flag:boolean, callback:(ev: MouseEvent)=>void){
         const self = this;
-        this.canvas.addEventListener('click', callback);
+        this.canvas.addEventListener('click', function(this: HTMLCanvasElement, ev: MouseEvent) { callback(ev) });
 
         this.canvas.addEventListener('contextmenu', function(this, ev){
             ev.preventDefault()
