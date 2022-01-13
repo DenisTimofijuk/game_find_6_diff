@@ -13,7 +13,7 @@ const DEBUGGER = false;
 
 export async function level1(){
     const configData = await loadJSON<ConfigFile>('/task-1/config.json');
-    const level1 = new GameLevel<ConfigFile>(configData);
+    const level1 = new GameLevel<ConfigFile>(configData, 4);
 
     const [a, b, c, d] = await level1.loadIamgeFiles();
     level1.customHanlder = levelCustomBehaviour(level1, d, c);

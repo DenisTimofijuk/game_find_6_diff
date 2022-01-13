@@ -3,16 +3,15 @@ import { loadImage } from "./loaders";
 
 export default class GameLevel<T extends JSON_object> {
     compositor: Compositor;
-    totlaDiffs: number;
     indicationPlaceHolder: HTMLElement;
     bufferPins: Array<string | number>;
     searchablePins: Array<string | number>;
-    constructor(public configData: T) {
+    constructor(public configData: T, public totlaDiffs:number) {
         this.compositor = new Compositor();
-        this.totlaDiffs = 6;
         this.indicationPlaceHolder = document.getElementById('diff-indicator')!;
         this.bufferPins = ([] as any[]).concat(configData.pins);
         this.searchablePins = ([] as any[]).concat(configData.pins);
+        this.displayDiffsCounter();
     }
 
     async loadIamgeFiles() {
@@ -61,9 +60,13 @@ export default class GameLevel<T extends JSON_object> {
                 this.totlaDiffs--;
                 this.searchablePins = this.bufferPins;
                 this.compositor.removeDiff(place[0], place[1], place[2], place[3], 'b-a');
-                this.indicationPlaceHolder.innerText = '' + this.totlaDiffs;
+                this.displayDiffsCounter();
             }
         });
+    }
+
+    displayDiffsCounter(){
+        this.indicationPlaceHolder.innerText = '' + this.totlaDiffs;
     }
 
     customHanlder(callback: () => void) {
