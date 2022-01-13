@@ -5,8 +5,8 @@ export default class GameLevel<T extends JSON_object> {
     compositor: Compositor;
     totlaDiffs: number;
     indicationPlaceHolder: HTMLElement;
-    bufferPins: string[];
-    searchablePins: string[];
+    bufferPins: Array<string | number>;
+    searchablePins: Array<string | number>;
     constructor(public configData: T) {
         this.compositor = new Compositor();
         this.totlaDiffs = 6;

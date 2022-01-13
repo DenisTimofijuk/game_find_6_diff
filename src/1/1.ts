@@ -43,7 +43,10 @@ function levelCustomBehaviour(currentLevel:GameLevel<ConfigFile>, spaceShip:HTML
 
         if(currentLevel.searchablePins.length / pinStep === 0 && animationMarker.phase_2){
             animationMarker.phase_2_finished = false;
-            rollSpaceShipComeBackScene(currentLevel, spaceShip, alien, ()=>animationMarker.phase_2_finished = true);   
+            rollSpaceShipComeBackScene(currentLevel, spaceShip, alien, (r)=>{
+                currentLevel.searchablePins.push(...r);
+                animationMarker.phase_2_finished = true
+            });   
             animationMarker.phase_2 = false;
         }
     }
