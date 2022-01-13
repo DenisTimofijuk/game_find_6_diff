@@ -38,5 +38,36 @@ export function rollSpaceShipScene(currentLevel: GameLevel<ConfigFile>, spaceShi
 
 
 export function rollSpaceShipComeBackScene(currentLevel: GameLevel<ConfigFile>, spaceShip: HTMLImageElement, alien:HTMLImageElement, callback:()=>void) {
-    console.log('rollSpaceShipComeBackScene');
+    const screen_b = currentLevel.compositor.screen_b;
+    const screen_a = currentLevel.compositor.screen_a;
+    const ship = {
+        x: screen_b.canvas.width,
+        y: -10,
+        velocity: 15,
+        drag: 0.5
+    }
+    const step = 3;
+    const deltaTime = 70;
+    
+
+    animation();
+    function animation() {
+        ship.velocity -= ship.drag;
+        ship.x -= ship.velocity + step;
+        ship.y += ship.velocity;
+
+        screen_b.clear();
+        screen_b.drawBuffer();
+        screen_b.context?.drawImage(spaceShip, ship.x, ship.y);
+
+        screen_a.clear();
+        screen_a.drawBuffer();
+        screen_a.context?.drawImage(spaceShip, ship.x, ship.y);
+
+        if(ship.x <= screen_b.canvas.width + spaceShip.width && ship.y >= -spaceShip.height){
+            setTimeout(animation, deltaTime);
+        }else{
+            callback();
+        }
+    }
 }

@@ -30,9 +30,9 @@ function levelCustomBehaviour(currentLevel:GameLevel<ConfigFile>, spaceShip:HTML
     }
     const pinStep = 4;
 
-    return function customHanlder(callback:()=>void){
+    return function customHanlder(constinueClickHandling:()=>void){
         if(animationMarker.phase_1_finished && animationMarker.phase_2_finished){
-            callback();
+            constinueClickHandling();
         }
 
         if(currentLevel.searchablePins.length / pinStep === 1 && animationMarker.phase_1){
