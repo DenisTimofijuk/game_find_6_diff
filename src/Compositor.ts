@@ -84,6 +84,7 @@ class Screen {
 
 }
 
+type SourceDestinationIndicator = 'a-b' | 'b-a';
 export default class Compositor {
     screen_b: Screen;
     screen_a: Screen;
@@ -93,8 +94,13 @@ export default class Compositor {
         this.screen_b = new Screen('screen-2');
     }
 
-    removeDiff(x:number, y:number, w:number, h:number){
-        this.screen_a.context?.drawImage(this.screen_b.canvas, x, y, w, h, x, y, w, h);
+    removeDiff(x:number, y:number, w:number, h:number, sourceDestination:SourceDestinationIndicator){
+        if(sourceDestination === 'b-a'){
+            this.screen_a.context?.drawImage(this.screen_b.canvas, x, y, w, h, x, y, w, h);
+        }else{
+            this.screen_b.context?.drawImage(this.screen_a.canvas, x, y, w, h, x, y, w, h);
+        }
+        
         this.screen_a.saveBuffer();
         this.screen_b.saveBuffer();
     }

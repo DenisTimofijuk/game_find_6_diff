@@ -1,11 +1,11 @@
 import type GameLevel from "src/GameLevel";
 
-export function rollSpaceShipScene(currentLevel: GameLevel<ConfigFile>, spaceShip: HTMLImageElement) {
+export function rollSpaceShipScene(currentLevel: GameLevel<ConfigFile>, spaceShip: HTMLImageElement, callback:()=>void) {
     const maxHeight = 30;
     const period = 50;
     const amplifier = 20;
-    const step = 10;
-    const deltaTime = 80;
+    const step = 15;
+    const deltaTime = 70;
     let shipPos_X = -spaceShip.width;
     let shipPos_Y = 0;
 
@@ -29,8 +29,14 @@ export function rollSpaceShipScene(currentLevel: GameLevel<ConfigFile>, spaceShi
         } 
 
         if (shipPos_X - screen_b.canvas.width > screen_b.canvas.width) {
-            return;
-        }
-        setTimeout(animation, deltaTime);
+            callback()
+        }else{
+            setTimeout(animation, deltaTime);
+        }        
     }
+}
+
+
+export function rollSpaceShipComeBackScene(currentLevel: GameLevel<ConfigFile>, spaceShip: HTMLImageElement, alien:HTMLImageElement, callback:()=>void) {
+    console.log('rollSpaceShipComeBackScene');
 }

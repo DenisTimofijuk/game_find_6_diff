@@ -1,6 +1,6 @@
 import { loadJSON } from "../loaders";
 import GameLevel from "../GameLevel";
-import { rollSpaceShipScene } from "./rollSpaceShipScene";
+import { rollSpaceShipComeBackScene, rollSpaceShipScene } from "./rollSpaceShipScene";
 
 // @ts-ignore
 // import rsBase64  from 'encrypter-js';
@@ -22,12 +22,29 @@ export async function level1(){
 }
 
 function levelCustomBehaviour(currentLevel:GameLevel<ConfigFile>, spaceShip:HTMLImageElement, alien:HTMLImageElement) {
-    let hasAnimationInitiated = false;
+    const animationMarker = {
+        phase_1: true,
+        phase_1_finished: true,
+        phase_2: true,
+        phase_2_finished: true,
+    }
+    const pinStep = 4;
 
-    return function customHanlder(){
-        if(currentLevel.searchablePins.length === 0 && !hasAnimationInitiated){
-            rollSpaceShipScene(currentLevel, spaceShip);
-            hasAnimationInitiated = true;
+    return function customHanlder(callback:()=>void){
+        if(animationMarker.phase_1_finished && animationMarker.phase_2_finished){
+            callback();
+        }
+
+        if(currentLevel.searchablePins.length / pinStep === 1 && animationMarker.phase_1){
+            animationMarker.phase_1_finished = false;
+            rollSpaceShipScene(currentLevel, spaceShip, ()=>animationMarker.phase_1_finished = true);
+            animationMarker.phase_1 = false;
+        }
+
+        if(currentLevel.searchablePins.length / pinStep === 0 && animationMarker.phase_2){
+            animationMarker.phase_2_finished = false;
+            rollSpaceShipComeBackScene(currentLevel, spaceShip, alien, ()=>animationMarker.phase_2_finished = true);   
+            animationMarker.phase_2 = false;
         }
     }
 }
