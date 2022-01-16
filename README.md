@@ -10,6 +10,8 @@ Canvas is the main driver here.
 we can create backend api to get img data url, then we will draw image on fron end.
 https://stackoverflow.com/questions/44698967/requesting-blob-images-and-transforming-to-base64-with-fetch-api
 
+Let player know when wil be next hint shown. Let him choose not to use availabel hints: "Next hint will be in xx seconds" "Pause Resume"
+
 ## The approach
 Since there is no database, dynamick file loading will be implemented. We would like to avoid of downloading everything to user's computer. That means that user will have to solve current task to be able to move to the fallowing one. File names will be encoded. By doing some wierd background magic it will decode next task filename.
 # New project setup
