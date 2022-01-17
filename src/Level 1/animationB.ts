@@ -1,3 +1,5 @@
+import { GameAudio } from "../AudioBoard";
+
 export const Level1AnimationB: AnimationFunction = function (currentGame: GameBody<ConfigFile_level_1>) {
     const screen_b = currentGame.compositor.screeenB;
     const screen_a = currentGame.compositor.screeenA;
@@ -12,6 +14,8 @@ export const Level1AnimationB: AnimationFunction = function (currentGame: GameBo
     let animationEnabled = false;
     let animationFinished = false;
     let rockPlaced = false;
+    const myAudio = new GameAudio('/task-1/audio/ufo3.mp3'); 
+    myAudio.audio.volume = 0.2
 
     const drawAlien = dropAlien(currentGame, alien, 350, 200);
 
@@ -20,8 +24,13 @@ export const Level1AnimationB: AnimationFunction = function (currentGame: GameBo
             return;
         }
         if (animationFinished) {
+            myAudio.fadeOut();
             return;
         };
+
+        if(myAudio.audio.paused){
+            myAudio.play() 
+        }
 
         let x = 0;
         let y = 0;

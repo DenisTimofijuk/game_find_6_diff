@@ -1,3 +1,5 @@
+import { GameAudio } from "../AudioBoard";
+
 export const Level1AnimationA: AnimationFunction = function (currentGame: GameBody<JSON_object>) {
     const maxHeight = 30;
     const period = 50;
@@ -10,16 +12,15 @@ export const Level1AnimationA: AnimationFunction = function (currentGame: GameBo
     let shipPos_X = -spaceShip.width;
     const screen_a = currentGame.compositor.screeenA;
     const screen_b = currentGame.compositor.screeenB;
-    let audioFinished = true;
-    const myAudio = new Audio('/task-1/audio/ufo1.mp3'); 
-    myAudio.volume = 0.1;
+    const myAudio = new GameAudio('/task-1/audio/ufo1.mp3'); 
+    myAudio.audio.volume = 0.1;
 
     function flyship(deltaTime: number) {
         if (!animationEnabled) {
             return;
         }
         if (animationFinished) {            
-            myAudio.pause()
+            myAudio.fadeOut();
             return;
         };
 
@@ -40,9 +41,7 @@ export const Level1AnimationA: AnimationFunction = function (currentGame: GameBo
         }
      
 
-        if (myAudio.paused) {
-            audioFinished = false;
-            myAudio.currentTime = 0;
+        if (myAudio.audio.paused) {
             myAudio.play();
         }
     }

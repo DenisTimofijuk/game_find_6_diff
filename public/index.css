@@ -14,3 +14,7 @@ canvas {
     width: 602px;
   }
 }
+
+#gameScreen{
+  display: none;
+}

@@ -23,28 +23,59 @@ export class AudioBoard {
 
 
 
-function createAudioLoader(context:AudioContext) {
-    return function loadAudio(url:string) {
-        return fetch(url)
-        .then(response => {
-            return response.arrayBuffer();
-        })
-        .then(arrayBuffer => {
-            return context.decodeAudioData(arrayBuffer);
-        })
-    }
+function createAudioLoader(context: AudioContext) {
+  return function loadAudio(url: string) {
+    return fetch(url)
+      .then(response => {
+        return response.arrayBuffer();
+      })
+      .then(arrayBuffer => {
+        return context.decodeAudioData(arrayBuffer);
+      })
+  }
 }
 
-export function loadAudioBoard<T extends JSON_audio>(audioURLs: string[], audioContext:AudioContext) {
-    const loadAudio = createAudioLoader(audioContext);
-    
-    const audioBoard = new AudioBoard(audioContext);
-    const jobs:Array<Promise<void>> = [];
-    audioURLs.forEach( (url, index) => {
-        const job = loadAudio(url).then(buffer => {
-            audioBoard.addAudio(index+'', buffer);
-        })
-        jobs.push(job);
-    });
-    return Promise.all(jobs).then(() => audioBoard);
+export function loadAudioBoard<T extends JSON_audio>(audioURLs: string[], audioContext: AudioContext) {
+  const loadAudio = createAudioLoader(audioContext);
+
+  const audioBoard = new AudioBoard(audioContext);
+  const jobs: Array<Promise<void>> = [];
+  audioURLs.forEach((url, index) => {
+    const job = loadAudio(url).then(buffer => {
+      audioBoard.addAudio(index + '', buffer);
+    })
+    jobs.push(job);
+  });
+  return Promise.all(jobs).then(() => audioBoard);
 };
+
+
+export class GameAudio {
+  audio: HTMLAudioElement;
+  constructor(url: string) {
+    this.audio = new Audio(url);
+  }
+
+  play() {
+    this.audio.currentTime = 0;
+    this.audio.play();
+  }
+
+  stop() {
+    this.audio.pause();
+  }
+
+  fadeOut() {
+    if(this.audio.paused){
+      return;
+    }
+
+    let prevVolume = this.audio.volume;
+    let newVolume = prevVolume - 0.005;
+    if(newVolume <= 0.001){
+      this.stop();
+    }else{
+      this.audio.volume = newVolume;
+    }    
+  }
+}
