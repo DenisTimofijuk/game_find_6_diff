@@ -1,3 +1,4 @@
+import type { AudioBoard } from "./AudioBoard";
 import Compositor from "./Compositor";
 
 export default class Game<T extends JSON_object> implements GameBody<JSON_object> {
@@ -8,7 +9,7 @@ export default class Game<T extends JSON_object> implements GameBody<JSON_object
     bufferPins: Array<number | string>;
     diffCount: number;
     diffIndicationPlaceHolder: HTMLElement;
-    constructor(public configData: T) {
+    constructor(public configData: T, public audioBoard:AudioBoard) {
         this.compositor = new Compositor();
         this.images = []
         this.animations = [];
@@ -38,6 +39,8 @@ export default class Game<T extends JSON_object> implements GameBody<JSON_object
         if (pins.length === 0) {
             return;
         }
+        const audioName = this.audioBoard.buffers.size - this.diffCount;
+        this.audioBoard.playAudio(audioName+'');
         this.diffCount--;
         this.searchablePins = this.bufferPins;
         this.compositor.removeDiff(pins);

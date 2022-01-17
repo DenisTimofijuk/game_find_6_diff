@@ -10,12 +10,16 @@ export const Level1AnimationA: AnimationFunction = function (currentGame: GameBo
     let shipPos_X = -spaceShip.width;
     const screen_a = currentGame.compositor.screeenA;
     const screen_b = currentGame.compositor.screeenB;
+    let audioFinished = true;
+    const myAudio = new Audio('/task-1/audio/ufo1.mp3'); 
+    myAudio.volume = 0.1;
 
     function flyship(deltaTime: number) {
         if (!animationEnabled) {
             return;
         }
-        if (animationFinished) {
+        if (animationFinished) {            
+            myAudio.pause()
             return;
         };
 
@@ -34,10 +38,17 @@ export const Level1AnimationA: AnimationFunction = function (currentGame: GameBo
         if (shipPos_X - screen_b.canvas.width > screen_b.canvas.width) {
             animationFinished = true;
         }
+     
+
+        if (myAudio.paused) {
+            audioFinished = false;
+            myAudio.currentTime = 0;
+            myAudio.play();
+        }
     }
 
     return function update(currentGame: GameBody<JSON_object>, deltaTime: number) {
-        if (currentGame.diffCount === 3) {
+        if (currentGame.diffCount === 2) {
             animationEnabled = true;
         }
         flyship(deltaTime);

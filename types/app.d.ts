@@ -1,14 +1,17 @@
+interface ThemeJSON{
+    "piano": string[];
+}
 interface JSON_object{
     "main-image-a":string;
     "main-image-b":string;
     "images": {[key:string]:string};
+    "background-audio": string;
     "audio": JSON_audio;
     "pins": string[];
     "totalDiffs": number;
 }
 
 interface JSON_audio{
-    "background-audio": string;
     [key:string]:string
 }
 
