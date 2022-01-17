@@ -40,17 +40,41 @@ export const Level1AnimationA: AnimationFunction = function (currentGame: GameBo
             animationFinished = true;
         }
      
-
         if (myAudio.audio.paused) {
             myAudio.play();
+        }
+
+        if(260 < Math.round(shipPos_X) && Math.round(shipPos_X) < 265 ){
+            currentGame.searchablePins.push(...placeItem(currentGame));
         }
     }
 
     return function update(currentGame: GameBody<JSON_object>, deltaTime: number) {
-        if (currentGame.diffCount === 2) {
+        if (currentGame.diffCount === 3) {
             animationEnabled = true;
         }
         flyship(deltaTime);
     }
 }
 
+function placeItem(currentLevel: GameBody<ConfigFile_level_1>) {
+    const screen_a = currentLevel.compositor.screeenA
+    const star = {
+        x: 400,
+        y: 60,
+        w: 50,
+        h: 50
+    };
+
+    const x = star.x + star.w/2;
+    const y = star.y + star.h/2;
+    const r = star.w/25;
+
+    screen_a.bufferCtx!.beginPath();
+    screen_a.bufferCtx!.fillStyle = '#4e4e4e';
+    screen_a.bufferCtx!.arc(x, y, r, 0, 2*Math.PI);
+    screen_a.bufferCtx!.fill();
+    screen_a.bufferCtx!.closePath();
+
+    return [star.x, star.y, star.w, star.h];
+}
