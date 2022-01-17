@@ -52,13 +52,12 @@ interface GameBody<T extends JSON_object> {
     bufferPins: Array<number | string>;
     diffCount: number;
     diffIndicationPlaceHolder: HTMLElement;
-    loadIamgeFiles(): Promise<void>;
+    setImages(images:HTMLImageElement[]):void;
     initScreens(): void;
     clickHandler(ev: MouseEvent): void;
     removeDiff(pins: number[]): void;
     findPins(mouseX: number, mouseY: number): number[];
     initEventListeners(): void;
-    run(): void;
     levelFinished(loadNext: () => void): void;
     displayDiffCount(): void;
     addAnimation(animation:AnimationFunction): void;

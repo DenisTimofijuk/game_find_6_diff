@@ -23,12 +23,12 @@ export const Level1AnimationA: AnimationFunction = function (currentGame: GameBo
         shipPos_X += incrementer;
         shipPos_Y = Math.round(Math.sin(shipPos_X / period) * amplifier) + maxHeight;
         if (shipPos_X <= screen_a.canvas.width + incrementer) {
-            screen_a.ctx?.drawImage(spaceShip, shipPos_X, shipPos_Y);
+            screen_a.ctx?.drawImage(spaceShip, Math.round(shipPos_X), Math.round(shipPos_Y));
         }
 
         if (shipPos_X >= screen_a.canvas.width - spaceShip.width && shipPos_X - screen_b.canvas.width <= screen_b.canvas.width + incrementer) {
             const x = shipPos_X - screen_b.canvas.width;
-            screen_b.ctx?.drawImage(spaceShip, x, shipPos_Y);
+            screen_b.ctx?.drawImage(spaceShip, Math.round(x), Math.round(shipPos_Y));
         }
 
         if (shipPos_X - screen_b.canvas.width > screen_b.canvas.width) {

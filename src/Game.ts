@@ -1,7 +1,4 @@
 import Compositor from "./Compositor";
-import { loadImage } from "./loaders";
-
-
 
 export default class Game<T extends JSON_object> implements GameBody<JSON_object> {
     compositor: Compositor;
@@ -21,17 +18,8 @@ export default class Game<T extends JSON_object> implements GameBody<JSON_object
         this.diffIndicationPlaceHolder = document.getElementById('diff-indicator')!;
     }
 
-    async loadIamgeFiles() {
-        const jobs = [
-            loadImage(this.configData["main-image-a"]),
-            loadImage(this.configData["main-image-b"])
-        ];
-
-        for (let key in this.configData.images) {
-            jobs.push(loadImage(this.configData.images[key]));
-        };
-
-        this.images = await Promise.all(jobs);
+    async setImages(images:HTMLImageElement[]) {
+        this.images.push(...images);
     }
 
     initScreens() {
@@ -75,10 +63,6 @@ export default class Game<T extends JSON_object> implements GameBody<JSON_object
     initEventListeners() {
         this.compositor.screeenA.click(this.clickHandler.bind(this));
         this.compositor.screeenB.click(this.clickHandler.bind(this));
-    }
-
-    run() {
-        window.requestAnimationFrame(this.run.bind(this));
     }
 
     update(detlaTime:number){

@@ -6,11 +6,12 @@ export const Level1AnimationB: AnimationFunction = function (currentGame: GameBo
     const ship = {
         x: screen_b.canvas.width,
         y: -10,
-        velocity: 15,
-        drag: 0.5
+        vel: 3.4,
+        drag: 0.05
     }
     let animationEnabled = false;
     let animationFinished = false;
+    let rockPlaced = false;
 
     const drawAlien = dropAlien(currentGame, alien, 350, 200);
 
@@ -24,19 +25,23 @@ export const Level1AnimationB: AnimationFunction = function (currentGame: GameBo
 
         let x = 0;
         let y = 0;
-        ship.velocity -= ship.drag;
-        ship.x -= (ship.velocity + 3);
-        ship.y += (ship.velocity + 1);
+        ship.vel -= ship.drag;
+        ship.x -= (ship.vel + 2.0);
+        ship.y += (ship.vel + 1.6);
         let newCoordinates:number[] = []
-        
-        if (ship.velocity < 0) {
-            newCoordinates = placeRock(currentGame);
+
+        if (ship.vel < 0) {
+            if(!rockPlaced){
+                newCoordinates = placeRock(currentGame);
+                currentGame.searchablePins.push(...newCoordinates);
+                rockPlaced = true;
+            }
+            
             [x, y] = drawAlien();
-            currentGame.searchablePins.push(...newCoordinates);
         }
 
-        screen_b.ctx?.drawImage(spaceShip, ship.x, ship.y);
-        screen_a.ctx?.drawImage(spaceShip, ship.x, ship.y);
+        screen_b.ctx?.drawImage(spaceShip, Math.round(ship.x), Math.round(ship.y));
+        screen_a.ctx?.drawImage(spaceShip, Math.round(ship.x), Math.round(ship.y));
 
         if (ship.x <= screen_b.canvas.width + spaceShip.width && ship.y >= -spaceShip.height) {
             
@@ -58,8 +63,8 @@ function saveAlien(currentLevel: GameBody<ConfigFile_level_1>, alienImg: HTMLIma
     const screen_b = currentLevel.compositor.screeenB;
     const screen_a = currentLevel.compositor.screeenA;
 
-    screen_b.bufferCtx?.drawImage(alienImg, x, y);
-    screen_a.bufferCtx?.drawImage(alienImg, x, y);
+    screen_b.bufferCtx?.drawImage(alienImg, Math.round(x), Math.round(y));
+    screen_a.bufferCtx?.drawImage(alienImg, Math.round(x), Math.round(y));
 }
 
 function dropAlien(currentLevel: GameBody<ConfigFile_level_1>, alienImg: HTMLImageElement, dropPosX: number, dropPosY: number) {
@@ -69,17 +74,17 @@ function dropAlien(currentLevel: GameBody<ConfigFile_level_1>, alienImg: HTMLIma
     const alien = {
         x: dropPosX,
         y: dropPosY,
-        velocity: -1.5,
-        acceleration: 0.1
+        velocity: -0.4,
+        acceleration: 0.01
     };
 
     return function draw() {
         alien.velocity += alien.acceleration;
-        alien.x -= alien.velocity;
+        alien.x -= alien.velocity + 0.1;
         alien.y += alien.velocity;
 
-        screen_b.ctx?.drawImage(alienImg, alien.x, alien.y);
-        screen_a.ctx?.drawImage(alienImg, alien.x, alien.y);
+        screen_b.ctx?.drawImage(alienImg, Math.round(alien.x), Math.round(alien.y));
+        screen_a.ctx?.drawImage(alienImg, Math.round(alien.x), Math.round(alien.y));
 
         return [alien.x, alien.y];
     }
@@ -94,7 +99,12 @@ function placeRock(currentLevel: GameBody<ConfigFile_level_1>) {
         h: 16
     };
 
-    screen_b.bufferCtx?.drawImage(screen_b.canvas, rock.x, rock.y, rock.w, rock.h, 400, 280, rock.w, rock.h);
+    const newPos = {
+        x: 425,
+        y: 280
+    }
 
-    return [400, 280, rock.w, rock.h];
+    screen_b.bufferCtx?.drawImage(screen_b.canvas, rock.x, rock.y, rock.w, rock.h, newPos.x, newPos.y, rock.w, rock.h);
+
+    return [newPos.x, newPos.y, rock.w, rock.h];
 }

@@ -42,3 +42,16 @@ export function loadAudioBoard<T extends JSON_audio>(config: T, audioContext:Aud
         });
         return Promise.all(jobs).then(() => audioBoard);
 };
+
+export function loadAllIamgeFiles(configData: JSON_object) {
+    const jobs = [
+        loadImage(configData["main-image-a"]),
+        loadImage(configData["main-image-b"])
+    ];
+
+    for (let key in configData.images) {
+        jobs.push(loadImage(configData.images[key]));
+    };
+
+    return Promise.all(jobs);
+}
