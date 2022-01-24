@@ -26,8 +26,5 @@ export default class Compositor implements GameCompositor {
 
     removeDiff([x, y, w, h]:number[]){
         this.screeenA.bufferCtx.drawImage(this.screeenB.canvas, x, y, w, h, x, y, w, h);
-        
-        // this.screeenA.saveBuffer();
-        // this.screeenB.saveBuffer();
     }
 }
