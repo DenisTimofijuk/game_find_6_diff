@@ -13,14 +13,11 @@ export async function loadJSON<T>(url: string): Promise<T> {
     return await r.json();
 }
 
-export function loadAllIamgeFiles(configData: JSON_object) {
-    const jobs = [
-        loadImage(configData["main-image-a"]),
-        loadImage(configData["main-image-b"])
-    ];
+export function loadAllIamgeFiles(configData: Level_Config_JSON) {
+    const jobs = [];
 
-    for (let key in configData.images) {
-        jobs.push(loadImage(configData.images[key]));
+    for (let url of configData.images) {
+        jobs.push(loadImage(url));
     };
 
     return Promise.all(jobs);

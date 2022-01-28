@@ -1,0 +1,30 @@
+{
+    "images": [
+        "/L-1/img/milda-a.png",
+        "/L-1/img/milda-b.png",
+        "/L-1/img/alien.png",
+        "/L-1/img/ship.png"
+    ],
+    "background-audio": "/L-1/audio/moon-sound_.mp3",
+    "audio": {
+    },
+    "pins": [
+        285,
+        130,
+        50,
+        50,
+        364,
+        317,
+        30,
+        24,
+        219,
+        448,
+        27,
+        24
+    ],
+    "totalDiffs": 5,
+    "next-level": "/L-1/config.json",
+    "animations": [
+        "level_1/anim_a.js"
+    ]
+}

@@ -25,12 +25,4 @@ export default class GameScreen implements GameScreenInterface {
         const ctx = this.buffer.getContext('2d');
         ctx?.drawImage(this.canvas, 0, 0);
     }
-
-    click(handler:(ev: MouseEvent)=>void){
-        this.canvas.addEventListener('click', handler);
-    }
-
-    rightClick(handler:(ev: MouseEvent)=>void){
-        this.canvas.addEventListener('contextmenu', handler);
-    }
 }

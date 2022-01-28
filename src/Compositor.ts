@@ -24,7 +24,7 @@ export default class Compositor implements GameCompositor {
         this.screeenB.drawBuffer();
     }
 
-    removeDiff([x, y, w, h]:number[]){
+    redrawSegment([x, y, w, h]:number[]){
         this.screeenA.bufferCtx.drawImage(this.screeenB.canvas, x, y, w, h, x, y, w, h);
     }
 }
