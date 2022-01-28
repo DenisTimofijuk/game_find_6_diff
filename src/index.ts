@@ -54,7 +54,7 @@ const diffHandler = {
 }
 
 function initNextLevelLoading() {
-    window.setTimeout(()=>window.dispatchEvent(loadNextLevel), 2000);
+    window.setTimeout(()=>window.dispatchEvent(loadNextLevel), 3000);
 }
 
 async function loadLevel(url: string) {
@@ -66,7 +66,7 @@ async function loadLevel(url: string) {
     let backgroundMusic: GameAudio | null = new GameAudio(levelConfigData["background-audio"]);
     const images = await loadAllIamgeFiles(levelConfigData);
     let pinsHandler: PinsHandler | null = new PinsHandler(levelConfigData.pins);
-    let audioName = 1;
+    let audioName = 0;
 
     diffHandler.init = levelConfigData.totalDiffs;
     backgroundMusic.audio.loop = true;
@@ -86,17 +86,19 @@ async function loadLevel(url: string) {
         if (pins.length === 0) {
             return;
         }
+
+        audioName++;
         if(audioName === levelConfigData.totalDiffs){
-            audioName === audioBoard.buffers.size - 1;
+            audioName = audioBoard.buffers.size - 1;
         }
+
         audioBoard.playAudio(audioName + '');
         diffHandler.diffs--;
-        audioName++;
         pinsHandler!.searchablePins = pinsHandler!.bufferPins;
         compositor.redrawSegment(pins);
         diffIndicationPlaceHolder.innerText = diffHandler.diffs + '';
 
-        if (diffHandler.diffs === 2) {
+        if (diffHandler.diffs === 0) {
             initNextLevelLoading();
         }
     }

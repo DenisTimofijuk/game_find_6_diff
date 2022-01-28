@@ -25,7 +25,7 @@ export default class Compositor {
     }
 
     redrawSegment([x, y, w, h]:number[]){
-        this.screeenA.bufferCtx.drawImage(this.screeenB.canvas, x, y, w, h, x, y, w, h);
+        this.screeenA.bufferCtx.drawImage(this.screeenB.buffer, x, y, w, h, x, y, w, h);
     }
 
     displayLoading(){

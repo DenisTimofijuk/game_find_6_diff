@@ -25,6 +25,7 @@
     "totalDiffs": 5,
     "next-level": "/L-1/config.json",
     "animations": [
-        "level_1/anim_a.js"
+        "level_1/anim_a.js",
+        "level_1/anim_b.js"
     ]
 }
