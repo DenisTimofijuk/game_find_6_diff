@@ -1,5 +1,4 @@
-
-export default class GameScreen implements GameScreenInterface {
+export default class GameScreen {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
     buffer: HTMLCanvasElement;
@@ -24,5 +23,13 @@ export default class GameScreen implements GameScreenInterface {
     saveBuffer() {
         const ctx = this.buffer.getContext('2d');
         ctx?.drawImage(this.canvas, 0, 0);
+    }
+
+    inidcateLoading(){
+        const ctx = this.buffer.getContext('2d')!;
+        ctx.font = "30px Comic Sans MS";
+        ctx.fillStyle = "red";
+        ctx.textAlign = "center";
+        ctx.fillText("Loading level...", this.buffer.width/2, this.buffer.height/2);
     }
 }

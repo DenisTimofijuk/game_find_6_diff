@@ -5,6 +5,6 @@ export default <AnimationFunction>function (levelData: {
     console.log('animation a')
 
     return function update(deltaTime:number){
-        console.log(levelData.diffs, pinsHandler.searchablePins.length)
+        // console.log(levelData.diffs, pinsHandler.searchablePins.length)
     }
 }
