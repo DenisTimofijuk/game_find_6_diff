@@ -1,10 +1,11 @@
 import { GameAudio, loadAudioBoard } from "./AudioBoard";
 import Compositor from "./Compositor";
+import inspector from "./inspector";
 import { loadAllIamgeFiles, loadJSON } from "./loaders";
 import PinsHandler from "./PinsHandler";
 import Timer from "./Timer";
 
-
+const DEBUGG = false;
 const startButton = document.getElementById('start-game')! as HTMLInputElement;
 const gameScreen = document.getElementById('gameScreen')!;
 const diffIndicationPlaceHolder = document.getElementById('diff-indicator')!;
@@ -20,6 +21,11 @@ timer.update = function update(deltaTime: number) {
     compositor.update();
     animations.forEach(update => update(deltaTime))
 };
+
+compositor.screeenA.canvas.addEventListener('contextmenu', contextMenuHandler);
+compositor.screeenB.canvas.addEventListener('contextmenu', contextMenuHandler);
+
+const updateInspector = DEBUGG ? inspector(compositor) : ()=>{};
 
 function getPianoClicks(pianoSounds: string[]) {
     const themeAudioURLs = [];
@@ -58,18 +64,20 @@ function initNextLevelLoading() {
 }
 
 async function loadLevel(url: string) {
+    animations.push(updateInspector);
     compositor.screeenA.canvas.removeEventListener('click', clickHandler);
     compositor.screeenB.canvas.removeEventListener('click', clickHandler);
     window.removeEventListener('nextlevel', loadHanlder);
     compositor.displayLoading();
     const levelConfigData = await loadJSON<Level_Config_JSON>(url);
-    let backgroundMusic: GameAudio | null = new GameAudio(levelConfigData["background-audio"]);
+    let backgroundMusic: GameAudio | null = new GameAudio(levelConfigData["background-audio"].url);
     const images = await loadAllIamgeFiles(levelConfigData);
     let pinsHandler: PinsHandler | null = new PinsHandler(levelConfigData.pins);
     let audioName = 0;
 
     diffHandler.init = levelConfigData.totalDiffs;
     backgroundMusic.audio.loop = true;
+    backgroundMusic.setVolume(levelConfigData["background-audio"].volume);
     diffIndicationPlaceHolder.innerText = diffHandler.diffs + '';
 
     compositor.drawScreens(images);
@@ -135,5 +143,9 @@ startButton.value = 'Start';
 startButton.addEventListener('click', () => {
     gameScreen.style.display = 'block';
     startButton.style.display = 'none';
-    loadLevel('/L-1/config.json');
+    loadLevel('/L-2/config.json');
 })
+
+function contextMenuHandler(e:MouseEvent) {
+    e.preventDefault();
+}

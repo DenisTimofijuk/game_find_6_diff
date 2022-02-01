@@ -3,7 +3,10 @@ interface ThemeJSON {
 }
 interface Level_Config_JSON {
     "images": string[];
-    "background-audio": string;
+    "background-audio":{
+        "url":string;
+        "volume": number
+    };
     "audio": JSON_audio;
     "pins": string[];
     "totalDiffs": number;
@@ -15,18 +18,6 @@ interface JSON_audio {
     [key: string]: string
 }
 
-
-// interface AnimationTrait {
-//     update(currentGame: GameBody<Level_Config_JSON>, detlaTime:number): void;
-//     init(currentGame: GameBody<Level_Config_JSON>): void;
-// }
-
-// interface ConfigFile_level_1 extends Level_Config_JSON {
-//     "images": {
-//         "image-alien": string;
-//         "image-ship": string;
-//     }
-// }
 interface GameScreenInterface {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
@@ -44,25 +35,6 @@ interface GameCompositor {
     update(): void;
     redrawSegment([x, y, w, h]: number[]): void;
 }
-
-// interface GameBody<T extends Level_Config_JSON> {
-//     compositor: GameCompositor;
-//     images: HTMLImageElement[];
-//     animations: UpdateAnimation[];
-//     searchablePins: Array<number | string>;
-//     bufferPins: Array<number | string>;
-//     diffCount: number;
-//     diffIndicationPlaceHolder: HTMLElement;
-//     setImages(images:HTMLImageElement[]):void;
-//     initScreens(): void;
-//     clickHandler(ev: MouseEvent): void;
-//     removeDiff(pins: number[]): void;
-//     findPins(mouseX: number, mouseY: number): number[];
-//     initEventListeners(): void;
-//     levelFinished(loadNext: () => void): void;
-//     displayDiffCount(): void;
-//     addAnimation(animation:AnimationFunction): void;
-// }
 
 interface PinsHandlerClass {
     bufferPins: Array<number | string>;

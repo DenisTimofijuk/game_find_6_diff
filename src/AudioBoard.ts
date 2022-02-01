@@ -56,6 +56,10 @@ export class GameAudio {
     this.audio = new Audio(url);
   }
 
+  setVolume(volume:number){
+    this.audio.volume = volume;
+  }
+
   play() {
     this.audio.currentTime = 0;
     this.audio.play();

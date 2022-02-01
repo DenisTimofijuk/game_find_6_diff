@@ -1,0 +1,28 @@
+{
+    "images": [
+        "/L-2/img/a.png",
+        "/L-2/img/b.png",
+        "/L-2/img/car1.png"
+    ],
+    "background-audio":{
+        "url":"/L-2/audio/traffic.mp3",
+        "volume": 0.2
+    },
+    "audio": {
+    },
+    "pins": [
+        379,307,15,22,
+        464,419,34,19,
+        524,289,18,16,
+        437,396,29,36,
+        62,236,17,21,
+        4,238,22,28,
+        50,343,35,35,
+        232,195,59,26
+    ],
+    "totalDiffs": 8,
+    "next-level": "/L-1/config.json",
+    "animations": [
+        "level_2/anim_a.js"
+    ]
+}

@@ -5,7 +5,10 @@
         "/L-1/img/alien.png",
         "/L-1/img/ship.png"
     ],
-    "background-audio": "/L-1/audio/moon-sound_.mp3",
+    "background-audio":{
+        "url":"/L-1/audio/moon-sound_.mp3",
+        "volume": 1
+    },
     "audio": {
     },
     "pins": [
@@ -23,7 +26,7 @@
         24
     ],
     "totalDiffs": 5,
-    "next-level": "/L-1/config.json",
+    "next-level": "/L-2/config.json",
     "animations": [
         "level_1/anim_a.js",
         "level_1/anim_b.js"
