@@ -1,0 +1,23 @@
+{
+    "images": [
+        "/L-3/img/a.png",
+        "/L-3/img/b.png"
+    ],
+    "background-audio":{
+        "url":"/L-3/audio/BlackHole.mp3",
+        "volume": 0.2
+    },
+    "audio": {
+    },
+    "pins": [
+        230,83,20,20,
+        41,87,29,27,
+        163,435,21,20,
+        281,302,29,70,
+        376,375,15,16
+    ],
+    "totalDiffs": 5,
+    "next-level": "/L-1/config.json",
+    "animations": [
+    ]
+}
