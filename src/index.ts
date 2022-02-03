@@ -18,7 +18,7 @@ const animations: UpdateAnimation[] = [];
 const loadNextLevel = new Event('nextlevel');
 
 timer.update = function update(deltaTime: number) {
-    compositor.update();
+    compositor.draw();
     animations.forEach(update => update(deltaTime))
 };
 
@@ -80,13 +80,12 @@ async function loadLevel(url: string) {
     backgroundMusic.setVolume(levelConfigData["background-audio"].volume);
     diffIndicationPlaceHolder.innerText = diffHandler.diffs + '';
 
-    compositor.drawScreens(images);
-    compositor.saveAllBuffers();
+    compositor.initBuffers(images);
 
-    levelConfigData.animations.forEach(async url => {
+    for(let url of levelConfigData.animations){
         const { default: animation } = await import(`./${url}`);
-        addAnimation(animation);
-    })   
+        await addAnimation(animation);
+    }
 
     clickHandler = function (ev: MouseEvent) {
         ev.preventDefault();
@@ -132,8 +131,8 @@ async function loadLevel(url: string) {
     timer.start();
     backgroundMusic!.play();
 
-    function addAnimation(animation: AnimationFunction,) {
-        const update = animation(diffHandler, images, compositor, pinsHandler!);
+    async function addAnimation(animation: AnimationFunction,) {
+        const update = await animation(diffHandler, images, compositor, pinsHandler!);
         animations.push(update);
     }
 }

@@ -1,13 +1,17 @@
-export default <AnimationFunction>function (levelData: {
+export default <AnimationFunction>async function (levelData: {
     init: number;
     diffs: number;
 }, images: HTMLImageElement[], compositor: GameCompositor, pinsHandler: PinsHandlerClass) {
+    // await new Promise((resolve, reject)=>{
+    //     resolve(true);
+    // });
+
     const canv = document.createElement('canvas');
     canv.width = compositor.screeenA.canvas.width;
     canv.height = compositor.screeenA.canvas.height;
     const ctx = canv.getContext('2d')!;
 
-    ctx.drawImage(compositor.screeenA.canvas, 464,250,36,19, 464,250-19,36,19);
+    ctx.drawImage(compositor.screeenA.buffer, 464,250,36,19, 464,250-19,36,19);
 
     let period = randomDellay();
 

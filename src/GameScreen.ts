@@ -25,6 +25,10 @@ export default class GameScreen {
         ctx?.drawImage(this.canvas, 0, 0);
     }
 
+    initBuffer(img:HTMLImageElement){
+        this.bufferCtx.drawImage(img, 0, 0);
+    }
+
     inidcateLoading(){
         const ctx = this.buffer.getContext('2d')!;
         ctx.font = "30px Comic Sans MS";

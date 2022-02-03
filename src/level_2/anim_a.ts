@@ -1,7 +1,11 @@
-export default <AnimationFunction>function (levelData: {
+export default <AnimationFunction>async function (levelData: {
     init: number;
     diffs: number;
 }, images: HTMLImageElement[], compositor: GameCompositor, pinsHandler: PinsHandlerClass) {
+    // await new Promise((resolve, reject)=>{
+    //     resolve(true);
+    // });
+
     const canv = document.createElement('canvas');
     canv.width = compositor.screeenA.canvas.width;
     canv.height = compositor.screeenA.canvas.height;
@@ -26,7 +30,7 @@ export default <AnimationFunction>function (levelData: {
     let y2 = 0;
     let velocity = 0.5;
     let dellay1 = randomDellay();
-    let dellay2 = randomDellay();
+    let dellay2 = randomDellay();    
 
     return function update(deltaTime: number) {
         ctx.clearRect(0,0, canv.width, canv.height);

@@ -1,6 +1,6 @@
 import { GameAudio } from "../AudioBoard";
 
-export default <AnimationFunction>function (levelData: {
+export default <AnimationFunction>async function (levelData: {
     init: number;
     diffs: number;
 }, images: HTMLImageElement[], compositor: GameCompositor, pinsHandler: PinsHandlerClass) {

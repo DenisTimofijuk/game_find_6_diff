@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "canvas-confetti": "^1.2.0",
+    "decode-gif": "^1.0.1",
     "encrypter-js": "^1.0.0"
   },
   "devDependencies": {

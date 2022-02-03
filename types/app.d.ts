@@ -30,9 +30,10 @@ interface GameScreenInterface {
 interface GameCompositor {
     screeenA: GameScreenInterface;
     screeenB: GameScreenInterface;
-    drawScreens(images: HTMLImageElement[]): void;
-    saveAllBuffers(): void;
-    update(): void;
+    // drawScreens(images: HTMLImageElement[]): void;
+    // saveAllBuffers(): void;
+    initBuffers(images: HTMLImageElement[]): void;
+    draw(): void;
     redrawSegment([x, y, w, h]: number[]): void;
 }
 
@@ -46,4 +47,4 @@ type UpdateAnimation = (deltaTime: number) => void;
 type AnimationFunction = (levelData: {
     init: number;
     diffs: number;
-}, images: HTMLImageElement[], compositor: GameCompositor, pinsHandler: PinsHandlerClass) => UpdateAnimation;
+}, images: HTMLImageElement[], compositor: GameCompositor, pinsHandler: PinsHandlerClass) => Promise<UpdateAnimation>;
