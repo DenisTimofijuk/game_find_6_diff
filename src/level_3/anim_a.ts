@@ -5,8 +5,8 @@ export default <AnimationFunction> async function (levelData: {
     diffs: number;
 }, images: HTMLImageElement[], compositor: GameCompositor, pinsHandler: PinsHandlerClass) {
     const canv = document.createElement('canvas');
-    canv.width = compositor.screeenA.canvas.width;
-    canv.height = compositor.screeenA.canvas.height;
+    canv.width = 100;
+    canv.height = 95;
     const ctx = canv.getContext('2d')!;
 
     const gif = GIF();
@@ -14,7 +14,6 @@ export default <AnimationFunction> async function (levelData: {
     await new Promise(function(resolve: (value: unknown) => void, reject: (reason?: any) => void){
         // @ts-ignore
         gif.onload = function(event){
-            console.log("loaded", gif);  
             resolve(true);
         }
     })

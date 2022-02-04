@@ -51,9 +51,20 @@ export function loadAudioBoard<T extends JSON_audio>(audioURLs: string[], audioC
 
 
 export class GameAudio {
-  audio: HTMLAudioElement;
-  constructor(url: string) {
-    this.audio = new Audio(url);
+  audio!: HTMLAudioElement;
+  constructor() {
+    this.audio = new Audio();
+  }
+
+  load(url: string){
+    const _this = this;
+    return new Promise(function (resolve, reject){
+      _this.audio.preload = "auto";
+      _this.audio.onerror = reject;
+      _this.audio.addEventListener('loadeddata', resolve);
+
+      _this.audio.src = url;
+    })
   }
 
   setVolume(volume:number){

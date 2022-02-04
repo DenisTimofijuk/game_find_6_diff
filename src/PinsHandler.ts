@@ -1,3 +1,5 @@
+import type Compositor from "./Compositor";
+
 export default class PinsHandler implements PinsHandlerClass {
     bufferPins: Array<number | string>;
     searchablePins: Array<number | string>;
@@ -34,4 +36,14 @@ export default class PinsHandler implements PinsHandlerClass {
     private isInTheRightPlace(offsetX: number, offsetY: number, x: number, y: number, w: number, h: number) {
         return offsetX >= x && offsetX <= x + w && offsetY >= y && offsetY <= y + h;
     }
+}
+
+
+export function acceptRatio(compositor:Compositor, value:number) {
+    const screen1 = document.getElementById('screen-1') as HTMLElement;
+    const w = screen1.clientWidth;
+    const originalWidth = compositor.screeenA.canvas.width;
+    const ratio = originalWidth / w;
+
+    return Math.round(value * ratio);
 }

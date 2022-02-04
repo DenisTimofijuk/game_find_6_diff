@@ -1,4 +1,5 @@
 import type Compositor from "./Compositor";
+import { acceptRatio } from "./PinsHandler";
 
 export default function inspector(compositor:Compositor) {
     const canv = document.createElement('canvas');
@@ -33,10 +34,15 @@ export default function inspector(compositor:Compositor) {
 
     function draw(x:number, y:number, w:number, h:number) {
         console.log([x, y, w, h].join(','));
-
+        const converted = {
+            x: acceptRatio(compositor, x),
+            y: acceptRatio(compositor, y),
+            w: acceptRatio(compositor, w),
+            h: acceptRatio(compositor, h)
+        }
         ctx.beginPath();
         ctx.strokeStyle = "yellow";
-        ctx.strokeRect(x, y, w, h);
+        ctx.strokeRect(converted.x, converted.y, converted.w, converted.h);
         ctx.closePath();
     }
 

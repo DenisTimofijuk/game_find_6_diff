@@ -15,7 +15,8 @@ export default <AnimationFunction>async function (levelData: {
     let shipPos_X = -spaceShip.width;
     const screen_a = compositor.screeenA;
     const screen_b = compositor.screeenB;
-    const myAudio = new GameAudio('/L-1/audio/ufo1.mp3');
+    const myAudio = new GameAudio();
+    await myAudio.load('/L-1/audio/ufo1.mp3');
     myAudio.audio.volume = 0.1;
 
 
@@ -77,7 +78,7 @@ function placeItem(compositor: GameCompositor) {
     const r = star.w / 25;
 
     screen_a.bufferCtx!.beginPath();
-    screen_a.bufferCtx!.fillStyle = '#4e4e4e';
+    screen_a.bufferCtx!.fillStyle = 'white';
     screen_a.bufferCtx!.arc(x, y, r, 0, 2 * Math.PI);
     screen_a.bufferCtx!.fill();
     screen_a.bufferCtx!.closePath();

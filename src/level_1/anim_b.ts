@@ -18,7 +18,8 @@ export default <AnimationFunction>async function (levelData: {
     let animationEnabled = false;
     let animationFinished = false;
     let rockPlaced = false;
-    const myAudio = new GameAudio('/L-1/audio/ufo3.mp3');
+    const myAudio = new GameAudio();
+    await myAudio.load('/L-1/audio/ufo3.mp3');
     myAudio.audio.volume = 0.2
 
     const drawAlien = dropAlien(compositor, alien, 350, 200);

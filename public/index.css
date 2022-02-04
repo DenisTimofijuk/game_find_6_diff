@@ -1,17 +1,23 @@
 canvas {
   margin: 2px auto;
   border: 1px solid brown;
+  width: 49%;
+}
+
+@media (max-width:430px) {
+  canvas{
+    width: 100%;
+  }
 }
 
 .screen-wrapper{
-  width: 1208px;
-  margin: auto;
-
+  /* width: 1208px;
+  margin: auto; */
 }
 
 @media (max-width:1220px) {
   .screen-wrapper{
-    width: 602px;
+    /* width: 602px; */
   }
 }
 

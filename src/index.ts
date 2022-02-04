@@ -2,7 +2,7 @@ import { GameAudio, loadAudioBoard } from "./AudioBoard";
 import Compositor from "./Compositor";
 import inspector from "./inspector";
 import { loadAllIamgeFiles, loadJSON } from "./loaders";
-import PinsHandler from "./PinsHandler";
+import PinsHandler, { acceptRatio } from "./PinsHandler";
 import Timer from "./Timer";
 
 const DEBUGG = true;
@@ -70,7 +70,8 @@ async function loadLevel(url: string) {
     window.removeEventListener('nextlevel', loadHanlder);
     compositor.displayLoading();
     const levelConfigData = await loadJSON<Level_Config_JSON>(url);
-    let backgroundMusic: GameAudio | null = new GameAudio(levelConfigData["background-audio"].url);
+    let backgroundMusic: GameAudio | null = new GameAudio();
+    await backgroundMusic.load(levelConfigData["background-audio"].url);
     const images = await loadAllIamgeFiles(levelConfigData);
     let pinsHandler: PinsHandler | null = new PinsHandler(levelConfigData.pins);
     let audioName = 0;
@@ -89,7 +90,11 @@ async function loadLevel(url: string) {
 
     clickHandler = function (ev: MouseEvent) {
         ev.preventDefault();
-        const pins = pinsHandler!.find(ev.offsetX, ev.offsetY);
+        
+        const x = acceptRatio(compositor, ev.offsetX);
+        const y = acceptRatio(compositor, ev.offsetY);
+        const pins = pinsHandler!.find(x, y);
+
         if (pins.length === 0) {
             return;
         }
