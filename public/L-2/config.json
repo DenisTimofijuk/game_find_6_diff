@@ -25,5 +25,11 @@
     "animations": [
         "level_2/anim_a.js",
         "level_2/anim_b.js"
-    ]
+    ],
+    "indication":{
+        "x": 210,
+        "y": 560,
+        "font": "100px serif",
+        "style": "#382414"
+    }
 }

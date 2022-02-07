@@ -20,5 +20,11 @@
     "next-level": "/L-4/config.json",
     "animations": [
         "level_3/anim_a.js"
-    ]
+    ],
+    "indication":{
+        "x": 80,
+        "y": 550,
+        "font": "italic 100px serif",
+        "style": "#4f6c83"
+    }
 }

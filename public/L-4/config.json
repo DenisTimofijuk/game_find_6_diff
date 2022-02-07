@@ -35,12 +35,18 @@
         516,445,18,35,
         318,215,23,51,
         422,206,66,30,
-        410,515,82,25
+        391,516,115,38
     ],
     "totalDiffs": 5,
     "next-level": "/L-1/config.json",
     "animations": [
         "level_4/anim_a.js",
         "level_4/anim_b.js"
-    ]
+    ],
+    "indication":{
+        "x": 100,
+        "y": 200,
+        "font": "italic 100px serif",
+        "style": "#accaf2"
+    }
 }

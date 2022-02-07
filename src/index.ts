@@ -1,5 +1,6 @@
 import { GameAudio, loadAudioBoard } from "./AudioBoard";
 import Compositor from "./Compositor";
+import Indicator from "./indicator";
 import inspector from "./inspector";
 import { loadAllIamgeFiles, loadJSON } from "./loaders";
 import PinsHandler, { acceptRatio } from "./PinsHandler";
@@ -8,10 +9,10 @@ import Timer from "./Timer";
 const DEBUGG = true;
 const startButton = document.getElementById('start-game')! as HTMLInputElement;
 const gameScreen = document.getElementById('gameScreen')!;
-const diffIndicationPlaceHolder = document.getElementById('diff-indicator')!;
 const audioContext = new AudioContext();
 const timer = new Timer();
 const compositor = new Compositor();
+const indicate = new Indicator(compositor);
 const themeConfigData = await loadJSON<ThemeJSON>('/theme/config.json');
 const audioBoard = await loadAudioBoard(getPianoClicks(themeConfigData.piano), audioContext);
 const animations: UpdateAnimation[] = [];
@@ -19,7 +20,8 @@ const loadNextLevel = new Event('nextlevel');
 
 timer.update = function update(deltaTime: number) {
     compositor.draw();
-    animations.forEach(update => update(deltaTime))
+    indicate.draw();
+    animations.forEach(update => update(deltaTime));
 };
 
 compositor.screeenA.canvas.addEventListener('contextmenu', contextMenuHandler);
@@ -76,10 +78,12 @@ async function loadLevel(url: string) {
     let pinsHandler: PinsHandler | null = new PinsHandler(levelConfigData.pins);
     let audioName = 0;
 
+    indicate.setup(levelConfigData.indication);
+    indicate.update(levelConfigData.totalDiffs);
+
     diffHandler.init = levelConfigData.totalDiffs;
     backgroundMusic.audio.loop = true;
     backgroundMusic.setVolume(levelConfigData["background-audio"].volume);
-    diffIndicationPlaceHolder.innerText = diffHandler.diffs + '';
 
     compositor.initBuffers(images);
 
@@ -108,7 +112,7 @@ async function loadLevel(url: string) {
         diffHandler.diffs--;
         pinsHandler!.searchablePins = pinsHandler!.bufferPins;
         compositor.redrawSegment(pins);
-        diffIndicationPlaceHolder.innerText = diffHandler.diffs + '';
+        indicate.update(diffHandler.diffs);
 
         if (diffHandler.diffs === 0) {
             initNextLevelLoading();
@@ -147,7 +151,7 @@ startButton.value = 'Start';
 startButton.addEventListener('click', () => {
     gameScreen.style.display = 'block';
     startButton.style.display = 'none';
-    loadLevel('/L-1/config.json');
+    loadLevel('/L-3/config.json');
 })
 
 toggleFulscreen();

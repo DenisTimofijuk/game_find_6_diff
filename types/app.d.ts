@@ -12,6 +12,12 @@ interface Level_Config_JSON {
     "totalDiffs": number;
     "next-level": string;
     "animations": string[];
+    "indication":{
+        "x": number;
+        "y": number;
+        "font": string;
+        "style": string;
+    }
 }
 
 interface JSON_audio {
