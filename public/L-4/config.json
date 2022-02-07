@@ -1,0 +1,46 @@
+{
+    "images": [
+        "/L-4/img/main_a.png",
+        "/L-4/img/main_b.png",
+        "/L-4/img/moon.png",
+        "/L-4/img/moon_lander.png",
+        "/L-4/img/bg_1.png",
+        "/L-4/img/w1.png",
+        "/L-4/img/w2.png",
+        "/L-4/img/w3.png",
+        "/L-4/img/w4.png",
+        "/L-4/img/w5.png",
+        "/L-4/img/w6.png",
+        "/L-4/img/w7.png",
+        "/L-4/img/w8.png",
+        "/L-4/img/w9.png",
+        "/L-4/img/w10.png",
+        "/L-4/img/w11.png",
+        "/L-4/img/w12.png",
+        "/L-4/img/w13.png",
+        "/L-4/img/w14.png",
+        "/L-4/img/w15.png",
+        "/L-4/img/w16.png",
+        "/L-4/img/w17.png",
+        "/L-4/img/w18.png"
+    ],
+    "background-audio":{
+        "url":"/L-4/audio/sea.ogg",
+        "volume": 0.7
+    },
+    "audio": {
+    },
+    "pins": [
+        502,396,48,22,
+        516,445,18,35,
+        318,215,23,51,
+        422,206,66,30,
+        410,515,82,25
+    ],
+    "totalDiffs": 5,
+    "next-level": "/L-1/config.json",
+    "animations": [
+        "level_4/anim_a.js",
+        "level_4/anim_b.js"
+    ]
+}

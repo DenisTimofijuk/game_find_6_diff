@@ -150,6 +150,25 @@ startButton.addEventListener('click', () => {
     loadLevel('/L-1/config.json');
 })
 
+toggleFulscreen();
+
 function contextMenuHandler(e:MouseEvent) {
     e.preventDefault();
+}
+
+function toggleFulscreen() {
+    const screenElement = document.getElementById("gameScreen")! as HTMLDivElement;
+    screenElement.addEventListener('dblclick', handler)
+
+    function handler() {
+        if(getFullscreenElement()){
+            document.exitFullscreen();
+        }else{
+            screenElement.requestFullscreen().catch(console.log);
+        }
+    }
+
+    function getFullscreenElement() {
+        return document.fullscreenElement;
+    }
 }

@@ -33,13 +33,16 @@ export default function inspector(compositor:Compositor) {
     }
 
     function draw(x:number, y:number, w:number, h:number) {
-        console.log([x, y, w, h].join(','));
+        
         const converted = {
             x: acceptRatio(compositor, x),
             y: acceptRatio(compositor, y),
             w: acceptRatio(compositor, w),
             h: acceptRatio(compositor, h)
         }
+        
+        console.log([converted.x, converted.y, converted.w, converted.h].join(','));
+
         ctx.beginPath();
         ctx.strokeStyle = "yellow";
         ctx.strokeRect(converted.x, converted.y, converted.w, converted.h);
