@@ -1,5 +1,6 @@
 interface ThemeJSON {
     "piano": string[];
+    "numbers": string[];
 }
 interface Level_Config_JSON {
     "images": string[];
@@ -15,8 +16,9 @@ interface Level_Config_JSON {
     "indication":{
         "x": number;
         "y": number;
-        "font": string;
-        "style": string;
+        "size": number;
+        "globalCompositeOperation": string;
+        "globalAlpha": number;
     }
 }
 

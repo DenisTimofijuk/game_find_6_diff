@@ -44,9 +44,10 @@
         "level_4/anim_b.js"
     ],
     "indication":{
-        "x": 100,
-        "y": 200,
-        "font": "italic 100px serif",
-        "style": "#accaf2"
+        "x": 400,
+        "y": 370,
+        "size": 80,
+        "globalCompositeOperation": "luminosity",
+        "globalAlpha": 1
     }
 }

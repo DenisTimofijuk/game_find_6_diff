@@ -14,5 +14,17 @@
         "/theme/audio/g5.mp3",
         "/theme/audio/a5.mp3",
         "/theme/audio/b5c6.mp3"
+    ],
+    "numbers":[
+        "/theme/img/0.png",
+        "/theme/img/1.png",
+        "/theme/img/2.png",
+        "/theme/img/3.png",
+        "/theme/img/4.png",
+        "/theme/img/5.png",
+        "/theme/img/6.png",
+        "/theme/img/7.png",
+        "/theme/img/8.png",
+        "/theme/img/9.png"
     ]
 }

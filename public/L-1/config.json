@@ -32,9 +32,10 @@
         "level_1/anim_b.js"
     ],
     "indication":{
-        "x": 50,
-        "y": 100,
-        "font": "italic 100px serif",
-        "style": "#616161"
+        "x": 10,
+        "y": 50,
+        "size": 80,
+        "globalCompositeOperation": "luminosity",
+        "globalAlpha": 1
     }
 }

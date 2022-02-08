@@ -27,9 +27,10 @@
         "level_2/anim_b.js"
     ],
     "indication":{
-        "x": 210,
-        "y": 560,
-        "font": "100px serif",
-        "style": "#382414"
+        "x": 200,
+        "y": 540,
+        "size": 60,
+        "globalCompositeOperation": "luminosity",
+        "globalAlpha": 1
     }
 }

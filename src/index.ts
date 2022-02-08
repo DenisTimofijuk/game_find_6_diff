@@ -14,7 +14,8 @@ const timer = new Timer();
 const compositor = new Compositor();
 const indicate = new Indicator(compositor);
 const themeConfigData = await loadJSON<ThemeJSON>('/theme/config.json');
-const audioBoard = await loadAudioBoard(getPianoClicks(themeConfigData.piano), audioContext);
+const audioBoard = await loadAudioBoard(themeConfigData.piano, audioContext);
+indicate.initBuffer(themeConfigData.numbers);
 const animations: UpdateAnimation[] = [];
 const loadNextLevel = new Event('nextlevel');
 
@@ -28,14 +29,6 @@ compositor.screeenA.canvas.addEventListener('contextmenu', contextMenuHandler);
 compositor.screeenB.canvas.addEventListener('contextmenu', contextMenuHandler);
 
 const updateInspector = DEBUGG ? inspector(compositor) : ()=>{};
-
-function getPianoClicks(pianoSounds: string[]) {
-    const themeAudioURLs = [];
-    for (let i = 0; i < pianoSounds.length; i++) {
-        themeAudioURLs.push(pianoSounds[i]);
-    }
-    return themeAudioURLs;
-}
 
 function clickEventManager() {
 
@@ -74,18 +67,17 @@ async function loadLevel(url: string) {
     const levelConfigData = await loadJSON<Level_Config_JSON>(url);
     let backgroundMusic: GameAudio | null = new GameAudio();
     await backgroundMusic.load(levelConfigData["background-audio"].url);
-    const images = await loadAllIamgeFiles(levelConfigData);
+    const images = await loadAllIamgeFiles(levelConfigData.images);
     let pinsHandler: PinsHandler | null = new PinsHandler(levelConfigData.pins);
     let audioName = 0;
-
-    indicate.setup(levelConfigData.indication);
-    indicate.update(levelConfigData.totalDiffs);
-
+    
     diffHandler.init = levelConfigData.totalDiffs;
     backgroundMusic.audio.loop = true;
     backgroundMusic.setVolume(levelConfigData["background-audio"].volume);
 
     compositor.initBuffers(images);
+    indicate.setup(levelConfigData.indication);
+    indicate.update(levelConfigData.totalDiffs);
 
     for(let url of levelConfigData.animations){
         const { default: animation } = await import(`./${url}`);
@@ -151,7 +143,7 @@ startButton.value = 'Start';
 startButton.addEventListener('click', () => {
     gameScreen.style.display = 'block';
     startButton.style.display = 'none';
-    loadLevel('/L-3/config.json');
+    loadLevel('/L-4/config.json');
 })
 
 toggleFulscreen();

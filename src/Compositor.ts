@@ -7,18 +7,6 @@ export default class Compositor {
         this.screeenB = new GameScreen('screen-2');
     }
 
-    // drawScreens(images:HTMLImageElement[]){
-    //     // this.screeenA.ctx.drawImage(images[0], 0, 0);
-    //     // this.screeenB.ctx.drawImage(images[1], 0, 0);
-    //     this.screeenA.ctx.drawImage(images[0], 0, 0);
-    //     this.screeenB.ctx.drawImage(images[1], 0, 0);
-    // }
-
-    // saveAllBuffers(){
-    //     this.screeenA.saveBuffer();
-    //     this.screeenB.saveBuffer();
-    // }
-
     initBuffers(images:HTMLImageElement[]){
         this.screeenA.initBuffer(images[0]);
         this.screeenB.initBuffer(images[1]);
