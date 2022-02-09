@@ -6,10 +6,10 @@
         "/L-5/img/d2.png",
         "/L-5/img/d3.png"
     ],
-    "background-audio":{
+    "background-audio":[{
         "url":"/L-5/audio/downtown.ogg",
         "volume": 0.7
-    },
+    }],
     "audio": {
     },
     "pins": [

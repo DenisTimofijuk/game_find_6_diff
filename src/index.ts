@@ -9,6 +9,8 @@ import Timer from "./Timer";
 const DEBUGG = true;
 const startButton = document.getElementById('start-game')! as HTMLInputElement;
 const gameScreen = document.getElementById('gameScreen')!;
+// @ts-ignore
+const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 const timer = new Timer();
 const compositor = new Compositor();
@@ -65,15 +67,19 @@ async function loadLevel(url: string) {
     window.removeEventListener('nextlevel', loadHanlder);
     compositor.displayLoading();
     const levelConfigData = await loadJSON<Level_Config_JSON>(url);
-    let backgroundMusic: GameAudio | null = new GameAudio();
-    await backgroundMusic.load(levelConfigData["background-audio"].url);
+    let backgroundMusic: GameAudio[] = [];
+    levelConfigData["background-audio"].forEach(async (element) => {
+        const music = new GameAudio();
+        backgroundMusic.push(music);
+        await music.load(element.url);
+        music.audio.loop = true;
+        music.setVolume(element.volume);
+    })
     const images = await loadAllIamgeFiles(levelConfigData.images);
     let pinsHandler: PinsHandler | null = new PinsHandler(levelConfigData.pins);
     let audioName = 0;
     
     diffHandler.init = levelConfigData.totalDiffs;
-    backgroundMusic.audio.loop = true;
-    backgroundMusic.setVolume(levelConfigData["background-audio"].volume);
 
     compositor.initBuffers(images);
     indicate.setup(levelConfigData.indication);
@@ -113,9 +119,8 @@ async function loadLevel(url: string) {
     
     loadHanlder = function () {
         if (levelConfigData["next-level"]) {
-            backgroundMusic!.stop();
+            backgroundMusic.forEach(music => music.stop());
             timer.stop();
-            backgroundMusic = null;
             pinsHandler = null;
             animations.length = 0;
             loadLevel(levelConfigData["next-level"]);
@@ -130,7 +135,7 @@ async function loadLevel(url: string) {
     window.addEventListener('nextlevel', loadHanlder);
 
     timer.start();
-    backgroundMusic!.play();
+    backgroundMusic.forEach(music => music.play());
 
     async function addAnimation(animation: AnimationFunction,) {
         const update = await animation(diffHandler, images, compositor, pinsHandler!);

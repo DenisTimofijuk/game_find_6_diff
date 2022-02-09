@@ -7,20 +7,46 @@
         "/L-6/img/l2.png",
         "/L-6/img/l3.png"
     ],
-    "background-audio":{
-        "url":"/L-5/audio/downtown.ogg",
-        "volume": 0.7
-    },
-    "audio": {
-    },
+    "background-audio": [
+        {
+            "url": "/L-5/audio/downtown.ogg",
+            "volume": 0.7
+        },
+        {
+            "url": "/L-6/audio/kevin_boucher_foley_footsteps_crunchy_snow.mp3",
+            "volume": 0.1
+        }
+    ],
+    "audio": {},
     "pins": [
-        1,390,29,107,
-        1,524,33,44,
-        408,524,44,41,
-        268,446,29,74,
-        62,379,24,37,
-        113,276,26,53,
-        287,84,30,102
+        1,
+        390,
+        29,
+        107,
+        1,
+        524,
+        33,
+        44,
+        408,
+        524,
+        44,
+        41,
+        268,
+        446,
+        29,
+        74,
+        62,
+        379,
+        24,
+        37,
+        113,
+        276,
+        26,
+        53,
+        287,
+        84,
+        30,
+        102
     ],
     "totalDiffs": 7,
     "next-level": "/L-1/config.json",
@@ -28,7 +54,7 @@
         "level_6/anim_a.js",
         "level_6/anim_b.js"
     ],
-    "indication":{
+    "indication": {
         "x": 380,
         "y": 290,
         "size": 70,

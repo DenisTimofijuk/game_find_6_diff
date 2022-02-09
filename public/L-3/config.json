@@ -3,10 +3,10 @@
         "/L-3/img/a.png",
         "/L-3/img/b.png"
     ],
-    "background-audio":{
+    "background-audio":[{
         "url":"/L-3/audio/BlackHole.mp3",
         "volume": 0.2
-    },
+    }],
     "audio": {
     },
     "pins": [

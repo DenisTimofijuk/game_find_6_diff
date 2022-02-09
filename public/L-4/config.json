@@ -24,10 +24,10 @@
         "/L-4/img/w17.png",
         "/L-4/img/w18.png"
     ],
-    "background-audio":{
+    "background-audio":[{
         "url":"/L-4/audio/sea.ogg",
         "volume": 0.7
-    },
+    }],
     "audio": {
     },
     "pins": [

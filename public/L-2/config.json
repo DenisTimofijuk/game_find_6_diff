@@ -4,10 +4,10 @@
         "/L-2/img/b.png",
         "/L-2/img/car1.png"
     ],
-    "background-audio":{
+    "background-audio":[{
         "url":"/L-2/audio/traffic.mp3",
         "volume": 0.2
-    },
+    }],
     "audio": {
     },
     "pins": [

@@ -7,7 +7,7 @@ interface Level_Config_JSON {
     "background-audio":{
         "url":string;
         "volume": number
-    };
+    }[];
     "audio": JSON_audio;
     "pins": string[];
     "totalDiffs": number;
