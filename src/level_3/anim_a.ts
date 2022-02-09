@@ -1,14 +1,11 @@
+import Layer from "../Layer";
 import { GIF } from "../GIF"
 
 export default <AnimationFunction> async function (levelData: {
     init: number;
     diffs: number;
 }, images: HTMLImageElement[], compositor: GameCompositor, pinsHandler: PinsHandlerClass) {
-    const canv = document.createElement('canvas');
-    canv.width = 100;
-    canv.height = 95;
-    const ctx = canv.getContext('2d')!;
-
+    const buffer = new Layer(100, 95);
     const gif = GIF();
     gif.load("/L-3/img/ezgif.com-gif-maker.gif");
     await new Promise(function(resolve: (value: unknown) => void, reject: (reason?: any) => void){
@@ -34,12 +31,12 @@ export default <AnimationFunction> async function (levelData: {
     let velocity = 0.2;
     
     return function update(deltaTime: number) {
-        ctx.clearRect(0, 0, canv.width, canv.height);
+        buffer.clear();
         // @ts-ignore
-        ctx.drawImage(gif.frames[Math.floor(index)].image, 0, 0);
+        buffer.ctx.drawImage(gif.frames[Math.floor(index)].image, 0, 0);
         
-        compositor.screeenA.ctx.drawImage(canv, sc.x, sc.y, sc.w, sc.h, dc.x, dc.y, dc.w, dc.h);
-        compositor.screeenB.ctx.drawImage(canv, sc.x, sc.y, sc.w, sc.h, dc.x, dc.y, dc.w, dc.h);
+        compositor.screeenA.ctx.drawImage(buffer.canv, sc.x, sc.y, sc.w, sc.h, dc.x, dc.y, dc.w, dc.h);
+        compositor.screeenB.ctx.drawImage(buffer.canv, sc.x, sc.y, sc.w, sc.h, dc.x, dc.y, dc.w, dc.h);
 
         index += velocity;
         if(index >= gif.frames.length){

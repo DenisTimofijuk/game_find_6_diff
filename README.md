@@ -6,6 +6,9 @@ Helper will be initiated if program will indicate that player is stuck.
 Play some background music, have some animations.  
 Canvas is the main driver here.
 
+# Application
+https://dgtmgame.000webhostapp.com/
+
 ## TODO
 we can create backend api to get img data url, then we will draw image on fron end.
 https://stackoverflow.com/questions/44698967/requesting-blob-images-and-transforming-to-base64-with-fetch-api

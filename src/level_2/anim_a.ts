@@ -1,3 +1,5 @@
+import Layer from "../Layer";
+
 export default <AnimationFunction>async function (levelData: {
     init: number;
     diffs: number;
@@ -5,23 +7,14 @@ export default <AnimationFunction>async function (levelData: {
     // await new Promise((resolve, reject)=>{
     //     resolve(true);
     // });
+    const w = compositor.screeenA.canvas.width;
+    const h = compositor.screeenA.canvas.height;
+    const mainLayer = new Layer(w, h);
+    const buffer1 = new Layer(w, h);
+    const buffer2 = new Layer(w, h);
 
-    const canv = document.createElement('canvas');
-    canv.width = compositor.screeenA.canvas.width;
-    canv.height = compositor.screeenA.canvas.height;
-    const ctx = canv.getContext('2d')!;
-
-    const layer1 = document.createElement('canvas');
-    layer1.width = canv.width;
-    layer1.height = canv.height;
-    const layer1ctx = layer1.getContext('2d')!;
-    layer1ctx.drawImage(images[2], 0, 0);
-
-    const layer2 = document.createElement('canvas');
-    layer2.width = canv.width;
-    layer2.height = canv.height;
-    const layer2ctx = layer2.getContext('2d')!;
-    layer2ctx.drawImage(images[2], 0, 0);
+    buffer1.ctx.drawImage(images[2], 0, 0);
+    buffer2.ctx.drawImage(images[2], 0, 0);
     
 
     let x1 = 0;
@@ -33,18 +26,18 @@ export default <AnimationFunction>async function (levelData: {
     let dellay2 = randomDellay();    
 
     return function update(deltaTime: number) {
-        ctx.clearRect(0,0, canv.width, canv.height);
+        mainLayer.clear();
 
         if(dellay1 < 0){
             x1 += velocity + 1.2;
             y1 += velocity;
-            ctx.drawImage(layer1, x1, y1);
+            mainLayer.ctx.drawImage(buffer1.canv, x1, y1);
         }
 
         if(dellay2 < 0){
             x2 += velocity + 1.2;
             y2 += velocity;
-            ctx.drawImage(layer2, x2, y2);
+            mainLayer.ctx.drawImage(buffer2.canv, x2, y2);
         }
 
         
@@ -64,8 +57,8 @@ export default <AnimationFunction>async function (levelData: {
         dellay1--;
         dellay2--;
 
-        compositor.screeenA.ctx.drawImage(canv, 0, 0);
-        compositor.screeenB.ctx.drawImage(canv, 0, 0);
+        compositor.screeenA.ctx.drawImage(mainLayer.canv, 0, 0);
+        compositor.screeenB.ctx.drawImage(mainLayer.canv, 0, 0);
     }
 }
 

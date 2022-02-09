@@ -1,17 +1,19 @@
+import Layer from "../Layer";
+import { getRandomArbitrary } from "../helpers";
+
 export default <AnimationFunction>async function (levelData: {
     init: number;
     diffs: number;
 }, images: HTMLImageElement[], compositor: GameCompositor, pinsHandler: PinsHandlerClass) {
     const canvases:HTMLCanvasElement[]= [];
     const windowImages = images.slice(5, images.length - 1);
-    windowImages.forEach((image, index) => {
-        const canv = document.createElement('canvas');
-        canv.width = compositor.screeenA.canvas.width;
-        canv.height = compositor.screeenA.canvas.height;
-        const ctx = canv.getContext('2d')!;
-        ctx.drawImage(image, 0, 0);
+    const w = compositor.screeenA.canvas.width;
+    const h = compositor.screeenA.canvas.height;
 
-        canvases.push(canv);
+    windowImages.forEach((image, index) => {    
+        const buffer = new Layer(w, h);
+        buffer.ctx.drawImage(image, 0, 0);
+        canvases.push(buffer.canv);
     })
 
     const dellay = 35;
@@ -27,8 +29,4 @@ export default <AnimationFunction>async function (levelData: {
         compositor.screeenA.ctx.drawImage(canvases[index], 0, 0);
         compositor.screeenB.ctx.drawImage(canvases[index], 0, 0);
     }
-}
-
-function getRandomArbitrary(min:number, max:number) {
-    return Math.floor(Math.random() * (max - min) + min);
 }

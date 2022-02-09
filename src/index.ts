@@ -6,7 +6,7 @@ import { loadAllIamgeFiles, loadJSON } from "./loaders";
 import PinsHandler, { acceptRatio } from "./PinsHandler";
 import Timer from "./Timer";
 
-const DEBUGG = false;
+const DEBUGG = true;
 const startButton = document.getElementById('start-game')! as HTMLInputElement;
 const gameScreen = document.getElementById('gameScreen')!;
 const audioContext = new AudioContext();
@@ -143,7 +143,7 @@ startButton.value = 'Start';
 startButton.addEventListener('click', () => {
     gameScreen.style.display = 'block';
     startButton.style.display = 'none';
-    loadLevel('/L-1/config.json');
+    loadLevel('/L-6/config.json');
 })
 
 toggleFulscreen();
