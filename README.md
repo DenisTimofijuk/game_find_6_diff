@@ -15,20 +15,19 @@ Let player know when wil be next hint shown. Let him choose not to use availabel
 ## The approach
 Since there is no database, dynamick file loading will be implemented. We would like to avoid of downloading everything to user's computer. That means that user will have to solve current task to be able to move to the fallowing one. File names will be encoded. By doing some wierd background magic it will decode next task filename.
 # New project setup
-1. Create project:
+1. Create project:  
 ``` npx create-snowpack-app reaction-time --template @snowpack/app-template-blank-typescript ```
-2. Add webpack:
-``` npm install --save-dev snowpack-plugin-webpack5 ```  
+2. Add webpack:   
 ``` npm install --save-dev @snowpack/plugin-webpack ```
-3. Add jquery:
+3. Add jquery:  
 ``` npm install --save-dev jquery ```
-4. Add jquery types:
+4. Add jquery types:  
 ``` npm i --save-dev @types/jquery ```
-5. Add jquery-ui:
+5. Add jquery-ui:  
 ``` npm i --save-dev jquery-ui ```
-6. Add jquery-ui types:
+6. Add jquery-ui types:  
 ``` npm install --save-dev @types/jqueryui ```
-7. Define old browser support:
+7. Define old browser support:  
 WebPack will support old browsers when adding code below in **package.json**
 ```
  "browserslist": [
