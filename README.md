@@ -18,7 +18,8 @@ Since there is no database, dynamick file loading will be implemented. We would 
 1. Create project:
 ``` npx create-snowpack-app reaction-time --template @snowpack/app-template-blank-typescript ```
 2. Add webpack:
-``` npm install --save-dev snowpack-plugin-webpack5 ```
+``` npm install --save-dev snowpack-plugin-webpack5 ```  
+``` npm install --save-dev @snowpack/plugin-webpack ```
 3. Add jquery:
 ``` npm install --save-dev jquery ```
 4. Add jquery types:

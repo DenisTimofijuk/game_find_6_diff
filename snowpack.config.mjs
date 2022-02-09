@@ -13,14 +13,17 @@ export default {
       },
     ],
     [
-      'snowpack-plugin-webpack5',
+      '@snowpack/plugin-webpack',
       {
-        outputPattern: {
-          css: 'css/[name].bundle.css',
-          js: 'js/[name].bundle.js',
-        },
+        extendConfig: (config) => {
+          // config.plugins.push(/* ... */);
+          config.experiments = {
+            topLevelAwait: true
+          }
+          return config;
+        }
       },
-    ]
+    ],
   ],
   routes: [
     /* Enable an SPA Fallback in development: */

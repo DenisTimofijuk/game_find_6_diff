@@ -1,0 +1,33 @@
+{
+    "images": [
+        "/L-5/img/a.png",
+        "/L-5/img/b.png",
+        "/L-5/img/d1.png",
+        "/L-5/img/d2.png",
+        "/L-5/img/d3.png"
+    ],
+    "background-audio":{
+        "url":"/L-5/audio/downtown.ogg",
+        "volume": 0.7
+    },
+    "audio": {
+    },
+    "pins": [
+        453,336,70,165,
+        346,143,24,25,
+        352,383,23,21,
+        2,136,60,412,
+        501,0,73,65
+    ],
+    "totalDiffs": 5,
+    "next-level": "/L-1/config.json",
+    "animations": [
+    ],
+    "indication":{
+        "x": 205,
+        "y": 115,
+        "size": 40,
+        "globalCompositeOperation": "luminosity",
+        "globalAlpha": 1
+    }
+}
