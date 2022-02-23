@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Web site created using create-snowpack-app" />
-    <link rel="stylesheet" type="text/css" href="/index.css" />
-    <title>Snowpack App</title>
-  </head>
-  <body>
-    <center><h1>Find all differences</h1></center>
-    
-    <div class="screen-wrapper" id="gameScreen">
-      <canvas id="screen-1" width="600" height="600"></canvas>
-      <canvas id="screen-2" width="600" height="600"></canvas>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Web site created using create-snowpack-app" />
+  <link rel="stylesheet" type="text/css" href="/index.css" />
+  <title>Snowpack App</title>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h1>Find all differences</h1>
+    </div>    
+  </header>
+  
+  <div class="container">
+    <div id="game-screen-wrapper">
+      <div class="hide" id="gameScreen">
+        <div class="canvas-wrapper">
+          <div class="canvas-holder"><canvas id="screen-1" width="600" height="600"></canvas></div>
+          <div class="canvas-holder"><canvas id="screen-2" width="600" height="600"></canvas></div>
+        </div>
+      </div>
     </div>
 
-    <div class="screen-wrapper" id="gameControll">
-      <center><input type="button" value="Starting game..." id="start-game"></center>
+    <div id="gameControll">
+      <input type="button" value="Starting game..." id="start-game" class="redButton">
+      <input type="button" class="blueButton hide" value="Eneter full screen" id="enter-full-screen">
     </div>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <script type="module" src="/dist/index.js"></script>
-  </body>
+  </div>
+  
+  <footer>
+    <div class="container text-center">
+      <p>&copy; 2022 by Denis Timofijuk</p>
+    </div>    
+  </footer>
+  
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <script type="module" src="/dist/index.js"></script>
+</body>
+
 </html>

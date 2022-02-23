@@ -1,14 +1,16 @@
 import { GameAudio, loadAudioBoard } from "./AudioBoard";
 import Compositor from "./Compositor";
+import { exitFullScreen, isFullScreen, requestFullScreen } from "./fullscreen";
 import Indicator from "./indicator";
 import inspector from "./inspector";
 import { loadAllIamgeFiles, loadJSON } from "./loaders";
 import PinsHandler, { acceptRatio } from "./PinsHandler";
 import Timer from "./Timer";
 
-const DEBUGG = true;
+const DEBUGG = false;
 const startButton = document.getElementById('start-game')! as HTMLInputElement;
 const gameScreen = document.getElementById('gameScreen')!;
+const fullscreenBtn = document.getElementById('enter-full-screen')!;
 // @ts-ignore
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
@@ -145,10 +147,14 @@ async function loadLevel(url: string) {
 
 
 startButton.value = 'Start';
+startButton.classList.remove('redButton');
+startButton.classList.add('greenButton');
+
 startButton.addEventListener('click', () => {
-    gameScreen.style.display = 'block';
-    startButton.style.display = 'none';
-    loadLevel('/L-6/config.json');
+    gameScreen.classList.remove('hide');
+    startButton.classList.add('hide');
+    fullscreenBtn.classList.remove('hide');
+    loadLevel('/L-1/config.json');
 })
 
 toggleFulscreen();
@@ -157,19 +163,17 @@ function contextMenuHandler(e:MouseEvent) {
     e.preventDefault();
 }
 
+
 function toggleFulscreen() {
     const screenElement = document.getElementById("gameScreen")! as HTMLDivElement;
-    screenElement.addEventListener('dblclick', handler)
+    const button = document.getElementById("enter-full-screen")!;
+    button.addEventListener('click', handler);
 
     function handler() {
-        if(getFullscreenElement()){
-            document.exitFullscreen();
-        }else{
-            screenElement.requestFullscreen().catch(console.log);
+        if (!isFullScreen()) {
+            requestFullScreen(screenElement);
+        } else {
+            exitFullScreen(document);
         }
-    }
-
-    function getFullscreenElement() {
-        return document.fullscreenElement;
     }
 }

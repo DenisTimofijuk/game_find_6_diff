@@ -1,26 +1,132 @@
 canvas {
-  margin: 2px auto;
+  /* margin: 2px; */
   border: 1px solid brown;
-  width: 49%;
-}
-
-@media (max-width:430px) {
-  canvas{
-    width: 100%;
-  }
-}
-
-.screen-wrapper{
-  /* width: 1208px;
-  margin: auto; */
-}
-
-@media (max-width:1220px) {
-  .screen-wrapper{
-    /* width: 602px; */
-  }
+  width: 100%;
 }
 
 #gameScreen{
-  display: none;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.canvas-wrapper{
+	display: flex;
+    flex-direction: row;
+	justify-content: center;
+}
+
+.canvas-holder{
+	margin: 3px;
+	width: 100%;
+}
+
+.container{
+	width: 80vw;
+	margin: auto;
+}
+
+.hide {
+  /* display: none !important; */
+  visibility: hidden;
+}
+
+.text-center{
+	text-align: center;
+}
+
+#gameControll{
+	margin: 1vh;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+@media (max-width:600px) {
+	canvas{
+	  width: 98%;
+	}
+
+	.container{
+		width: 95vw;
+	}
+	.canvas-wrapper{
+		flex-direction: column;
+	}
+  }
+
+.greenButton {
+	box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	background:linear-gradient(to bottom, #b8e356 5%, #a5cc52 100%);
+	background-color:#b8e356;
+	border-radius:6px;
+	border:1px solid #83c41a;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #86ae47;
+}
+.greenButton:hover {
+	background:linear-gradient(to bottom, #a5cc52 5%, #b8e356 100%);
+	background-color:#a5cc52;
+}
+.greenButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+.redButton {
+	box-shadow:inset 0px 1px 0px 0px #f5978e;
+	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	background-color:#f24537;
+	border-radius:6px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
+}
+.redButton:hover {
+	background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	background-color:#c62d1f;
+}
+.redButton:active {
+	position:relative;
+	top:1px;
+}
+
+.blueButton {
+	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+	background-color:#79bbff;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #528ecc;
+}
+.blueButton:hover {
+	background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+	background-color:#378de5;
+}
+.blueButton:active {
+	position:relative;
+	top:1px;
 }
