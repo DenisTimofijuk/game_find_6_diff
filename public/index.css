@@ -16,6 +16,10 @@ canvas {
 	justify-content: center;
 }
 
+#game-screen-wrapper{
+	background-color: whitesmoke;
+}
+
 .canvas-holder{
 	margin: 3px;
 	width: 100%;

@@ -7,7 +7,7 @@ import { loadAllIamgeFiles, loadJSON } from "./loaders";
 import PinsHandler, { acceptRatio } from "./PinsHandler";
 import Timer from "./Timer";
 
-const DEBUGG = false;
+const DEBUGG = true;
 const startButton = document.getElementById('start-game')! as HTMLInputElement;
 const gameScreen = document.getElementById('gameScreen')!;
 const fullscreenBtn = document.getElementById('enter-full-screen')!;
@@ -154,7 +154,7 @@ startButton.addEventListener('click', () => {
     gameScreen.classList.remove('hide');
     startButton.classList.add('hide');
     fullscreenBtn.classList.remove('hide');
-    loadLevel('/L-1/config.json');
+    loadLevel('/L-8/config.json');
 })
 
 toggleFulscreen();

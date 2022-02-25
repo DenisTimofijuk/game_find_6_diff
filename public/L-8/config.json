@@ -1,0 +1,39 @@
+{
+    "images": [
+        "/L-8/img/b.png",
+        "/L-8/img/a.png",
+        "/L-8/img/cow.png",
+        "/L-8/img/light.png",
+        "/L-8/img/light_s.png",
+        "/L-8/img/spot.png"
+    ],
+    "background-audio": [
+        {
+            "url": "/L-8/audio/thunderbackground.ogg",
+            "volume": 0.4
+        }
+    ],
+    "audio": {},
+    "pins": [
+        389,496,38,43,
+        177,557,49,29,
+        523,376,72,73,
+        452,465,32,39,
+        134,243,29,25
+    ],
+    "totalDiffs": 5,
+    "next-level": "/L-1/config.json",
+    "animations": [
+        "level_8/anim_a.js",
+        "level_8/anim_b.js",
+        "level_8/anim_c.js",
+        "level_8/anim_d.js"
+    ],
+    "indication": {
+        "x": 217,
+        "y": 340,
+        "size": 50,
+        "globalCompositeOperation": "luminosity",
+        "globalAlpha": 1
+    }
+}
