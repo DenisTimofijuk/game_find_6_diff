@@ -4,7 +4,7 @@ export default <AnimationFunction>async function (levelData: {
     init: number;
     diffs: number;
 }, images: HTMLImageElement[], compositor: GameCompositor, pinsHandler: PinsHandlerClass) {
-
+    const updatediffIndi = new Event('updatediffIndi');
     const screen_b = compositor.screeenB;
     const screen_a = compositor.screeenA;
     const spaceShip = images[3];
@@ -49,6 +49,7 @@ export default <AnimationFunction>async function (levelData: {
                 newCoordinates = placeRock(compositor);
                 pinsHandler.searchablePins.push(...newCoordinates);
                 rockPlaced = true;
+                window.dispatchEvent(updatediffIndi);
             }
 
             [x, y] = drawAlien();

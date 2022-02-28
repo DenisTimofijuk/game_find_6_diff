@@ -5,7 +5,7 @@ interface LevelOptions {
     x: number; y: number; size: number; globalCompositeOperation:string; globalAlpha:number;
 }
 
-export default class Indicator {
+export default class TotalIndicator {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
     x: number;

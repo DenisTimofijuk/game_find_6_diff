@@ -18,6 +18,7 @@ export default <AnimationFunction>async function (levelData: {
     const myAudio = new GameAudio();
     await myAudio.load('/L-1/audio/ufo1.mp3');
     myAudio.audio.volume = 0.1;
+    const updatediffIndi = new Event('updatediffIndi');
 
 
     function flyship(deltaTime: number) {
@@ -51,6 +52,7 @@ export default <AnimationFunction>async function (levelData: {
 
         if (260 < Math.round(shipPos_X) && Math.round(shipPos_X) < 265) {
             pinsHandler.searchablePins.push(...placeItem(compositor));
+            window.dispatchEvent(updatediffIndi);
         }
     }
 

@@ -24,7 +24,7 @@ export default class PinsHandler implements PinsHandlerClass {
         return pins;
     }
 
-    private getPins(index: number) {
+    getPins(index: number) {
         const x = Number(this.searchablePins[index]);
         const y = Number(this.searchablePins[index + 1]);
         const w = Number(this.searchablePins[index + 2]);

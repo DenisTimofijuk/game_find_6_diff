@@ -1,13 +1,14 @@
 import { GameAudio, loadAudioBoard } from "./AudioBoard";
 import Compositor from "./Compositor";
 import { exitFullScreen, isFullScreen, requestFullScreen } from "./fullscreen";
-import Indicator from "./indicator";
+import UserHelper from "./userHelper";
+import TotalIndicator from "./indicator";
 import inspector from "./inspector";
 import { loadAllIamgeFiles, loadJSON } from "./loaders";
 import PinsHandler, { acceptRatio } from "./PinsHandler";
 import Timer from "./Timer";
 
-const DEBUGG = true;
+const DEBUGG = false;
 const startButton = document.getElementById('start-game')! as HTMLInputElement;
 const gameScreen = document.getElementById('gameScreen')!;
 const fullscreenBtn = document.getElementById('enter-full-screen')!;
@@ -16,17 +17,19 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 const timer = new Timer();
 const compositor = new Compositor();
-const indicate = new Indicator(compositor);
+const indicateTotal = new TotalIndicator(compositor);
+const helpUser = new UserHelper(compositor);
 const themeConfigData = await loadJSON<ThemeJSON>('/theme/config.json');
 const audioBoard = await loadAudioBoard(themeConfigData.piano, audioContext);
-indicate.initBuffer(themeConfigData.numbers);
+indicateTotal.initBuffer(themeConfigData.numbers);
 const animations: UpdateAnimation[] = [];
 const loadNextLevel = new Event('nextlevel');
 
 timer.update = function update(deltaTime: number) {
     compositor.draw();
-    indicate.draw();
+    indicateTotal.draw();
     animations.forEach(update => update(deltaTime));
+    helpUser.update();
 };
 
 compositor.screeenA.canvas.addEventListener('contextmenu', contextMenuHandler);
@@ -48,8 +51,16 @@ function loadNextEventManager() {
     }
 }
 
+function updateDiffIndicator() {
+    
+    return function handler() {
+        console.error('Unhandled.')
+    }
+}
+
 let clickHandler = clickEventManager();
 let loadHanlder = loadNextEventManager();
+let updatediffIndi = updateDiffIndicator();
 
 const diffHandler = {
     set init(total: number) {
@@ -67,6 +78,7 @@ async function loadLevel(url: string) {
     compositor.screeenA.canvas.removeEventListener('click', clickHandler);
     compositor.screeenB.canvas.removeEventListener('click', clickHandler);
     window.removeEventListener('nextlevel', loadHanlder);
+    window.removeEventListener('updatediffIndi', updatediffIndi);
     compositor.displayLoading();
     const levelConfigData = await loadJSON<Level_Config_JSON>(url);
     let backgroundMusic: GameAudio[] = [];
@@ -78,14 +90,14 @@ async function loadLevel(url: string) {
         music.setVolume(element.volume);
     })
     const images = await loadAllIamgeFiles(levelConfigData.images);
-    let pinsHandler: PinsHandler | null = new PinsHandler(levelConfigData.pins);
+    let pinsHandler: PinsHandler = new PinsHandler(levelConfigData.pins);
     let audioName = 0;
     
     diffHandler.init = levelConfigData.totalDiffs;
 
     compositor.initBuffers(images);
-    indicate.setup(levelConfigData.indication);
-    indicate.update(levelConfigData.totalDiffs);
+    indicateTotal.setup(levelConfigData.indication);
+    indicateTotal.update(levelConfigData.totalDiffs);
 
     for(let url of levelConfigData.animations){
         const { default: animation } = await import(`./${url}`);
@@ -97,7 +109,7 @@ async function loadLevel(url: string) {
         
         const x = acceptRatio(compositor, ev.offsetX);
         const y = acceptRatio(compositor, ev.offsetY);
-        const pins = pinsHandler!.find(x, y);
+        const pins = pinsHandler.find(x, y);
 
         if (pins.length === 0) {
             return;
@@ -112,7 +124,8 @@ async function loadLevel(url: string) {
         diffHandler.diffs--;
         pinsHandler!.searchablePins = pinsHandler!.bufferPins;
         compositor.redrawSegment(pins);
-        indicate.update(diffHandler.diffs);
+        indicateTotal.update(diffHandler.diffs);
+        helpUser.set(pinsHandler!.getPins(0));
 
         if (diffHandler.diffs === 0) {
             initNextLevelLoading();
@@ -123,6 +136,7 @@ async function loadLevel(url: string) {
         if (levelConfigData["next-level"]) {
             backgroundMusic.forEach(music => music.stop());
             timer.stop();
+            // @ts-ignore
             pinsHandler = null;
             animations.length = 0;
             loadLevel(levelConfigData["next-level"]);
@@ -131,10 +145,15 @@ async function loadLevel(url: string) {
         }
     }
 
+    updatediffIndi = function(){
+        helpUser.set(pinsHandler!.getPins(0));    
+    }
 
+    helpUser.set(pinsHandler!.getPins(0));
     compositor.screeenA.canvas.addEventListener('click', clickHandler);
     compositor.screeenB.canvas.addEventListener('click', clickHandler);
     window.addEventListener('nextlevel', loadHanlder);
+    window.addEventListener('updatediffIndi', updatediffIndi);
 
     timer.start();
     backgroundMusic.forEach(music => music.play());
@@ -154,7 +173,7 @@ startButton.addEventListener('click', () => {
     gameScreen.classList.remove('hide');
     startButton.classList.add('hide');
     fullscreenBtn.classList.remove('hide');
-    loadLevel('/L-8/config.json');
+    loadLevel('/L-1/config.json');
 })
 
 toggleFulscreen();
@@ -177,3 +196,5 @@ function toggleFulscreen() {
         }
     }
 }
+
+// TODO: effect indentifikuot kai randamas elementas
