@@ -198,3 +198,12 @@ function toggleFulscreen() {
 }
 
 // TODO: effect indentifikuot kai randamas elementas
+handleDisclamer();
+
+function handleDisclamer() {
+    const element = document.querySelector('div.disclaimer');
+    if(!element) return;
+    const heigtht = element!.clientHeight;
+    const footer = document.getElementsByTagName('footer')[0];
+    footer.style.marginBottom = (10 + heigtht) + 'px';
+}
