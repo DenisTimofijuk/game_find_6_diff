@@ -69,10 +69,10 @@ export default <AnimationFunction>async function (levelData: {
 function placeItem(compositor: GameCompositor) {
     const screen_a = compositor.screeenA
     const star = {
-        x: 400,
-        y: 60,
-        w: 50,
-        h: 50
+        x: 391,
+        y: 51,
+        w: 70,
+        h: 60
     };
 
     const x = star.x + star.w / 2;

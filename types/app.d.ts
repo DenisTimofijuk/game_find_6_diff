@@ -1,6 +1,7 @@
 interface ThemeJSON {
     "piano": string[];
     "numbers": string[];
+    "vortex": string[];
 }
 interface Level_Config_JSON {
     "images": string[];

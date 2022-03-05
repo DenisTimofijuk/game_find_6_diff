@@ -16,15 +16,23 @@
         "/theme/audio/b5c6.mp3"
     ],
     "numbers":[
-        "/theme/img/0.png",
-        "/theme/img/1.png",
-        "/theme/img/2.png",
-        "/theme/img/3.png",
-        "/theme/img/4.png",
-        "/theme/img/5.png",
-        "/theme/img/6.png",
-        "/theme/img/7.png",
-        "/theme/img/8.png",
-        "/theme/img/9.png"
+        "/theme/img/numbers/0.png",
+        "/theme/img/numbers/1.png",
+        "/theme/img/numbers/2.png",
+        "/theme/img/numbers/3.png",
+        "/theme/img/numbers/4.png",
+        "/theme/img/numbers/5.png",
+        "/theme/img/numbers/6.png",
+        "/theme/img/numbers/7.png",
+        "/theme/img/numbers/8.png",
+        "/theme/img/numbers/9.png"
+    ],
+    "vortex":[
+        "/theme/img/vortex/1.png",
+        "/theme/img/vortex/2.png",
+        "/theme/img/vortex/3.png",
+        "/theme/img/vortex/4.png",
+        "/theme/img/vortex/5.png",
+        "/theme/img/vortex/6.png"
     ]
 }

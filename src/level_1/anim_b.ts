@@ -117,11 +117,13 @@ function placeRock(compositor: GameCompositor) {
     };
 
     const newPos = {
-        x: 425,
-        y: 280
+        x: 396,
+        y: 245,
+        w: 83,
+        h: 54
     }
 
-    screen_b.bufferCtx?.drawImage(screen_b.canvas, rock.x, rock.y, rock.w, rock.h, newPos.x, newPos.y, rock.w, rock.h);
+    screen_b.bufferCtx?.drawImage(screen_b.canvas, rock.x, rock.y, rock.w, rock.h, newPos.x+25, newPos.y+15, rock.w, rock.h);
 
-    return [newPos.x, newPos.y, rock.w, rock.h];
+    return [newPos.x, newPos.y, newPos.w, newPos.h];
 }

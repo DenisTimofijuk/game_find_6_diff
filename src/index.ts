@@ -7,8 +7,11 @@ import inspector from "./inspector";
 import { loadAllIamgeFiles, loadJSON } from "./loaders";
 import PinsHandler, { acceptRatio } from "./PinsHandler";
 import Timer from "./Timer";
+import Vortex from "./Vortex";
 
-const DEBUGG = false;
+handleDisclamer();
+
+const DEBUGG = true;
 const startButton = document.getElementById('start-game')! as HTMLInputElement;
 const gameScreen = document.getElementById('gameScreen')!;
 const fullscreenBtn = document.getElementById('enter-full-screen')!;
@@ -21,7 +24,9 @@ const indicateTotal = new TotalIndicator(compositor);
 const helpUser = new UserHelper(compositor);
 const themeConfigData = await loadJSON<ThemeJSON>('/theme/config.json');
 const audioBoard = await loadAudioBoard(themeConfigData.piano, audioContext);
-indicateTotal.initBuffer(themeConfigData.numbers);
+const vortex = new Vortex(compositor);
+await indicateTotal.initBuffer(themeConfigData.numbers);
+await vortex.initBuffer(themeConfigData.vortex);
 const animations: UpdateAnimation[] = [];
 const loadNextLevel = new Event('nextlevel');
 
@@ -30,6 +35,7 @@ timer.update = function update(deltaTime: number) {
     indicateTotal.draw();
     animations.forEach(update => update(deltaTime));
     helpUser.update();
+    vortex.update();
 };
 
 compositor.screeenA.canvas.addEventListener('contextmenu', contextMenuHandler);
@@ -125,8 +131,9 @@ async function loadLevel(url: string) {
         pinsHandler!.searchablePins = pinsHandler!.bufferPins;
         compositor.redrawSegment(pins);
         indicateTotal.update(diffHandler.diffs);
+        vortex.set(pins);
         helpUser.set(pinsHandler!.getPins(0));
-
+        
         if (diffHandler.diffs === 0) {
             initNextLevelLoading();
         }
@@ -196,9 +203,6 @@ function toggleFulscreen() {
         }
     }
 }
-
-// TODO: effect indentifikuot kai randamas elementas
-handleDisclamer();
 
 function handleDisclamer() {
     const element = document.querySelector('div.disclaimer');
