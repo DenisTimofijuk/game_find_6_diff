@@ -14,9 +14,9 @@
   <header>
     <div class="container">
       <h1>Find all differences</h1>
-    </div>    
+    </div>
   </header>
-  
+
   <div class="container">
     <div id="game-screen-wrapper">
       <div class="hide" id="gameScreen">
@@ -27,19 +27,35 @@
       </div>
     </div>
 
+    <div id="error-wrapper">
+      <p class="error-text">Your browser is not compatible. Please use a different browser.</p>
+    </div>
+
     <div id="gameControll">
       <input type="button" value="Starting game..." id="start-game" class="redButton">
       <input type="button" class="blueButton hide" value="Enter full screen" id="enter-full-screen">
     </div>
   </div>
-  
+
   <footer>
     <div class="container text-center">
       <p>&copy; 2022 by Denis Timofijuk</p>
-    </div>    
+    </div>
   </footer>
-  
+
   <noscript>You need to enable JavaScript to run this app.</noscript>
+  <script>
+    (function(){
+      const canv = document.createElement('canvas');
+      const ctx = canv.getContext('2d');
+      try {
+        ctx.filter = ''
+        console.log('browser is compatible.');
+      } catch (error) {
+        console.error('browser is incompatible.');
+      }
+    })()
+  </script>
   <script type="module" src="/dist/index.js"></script>
 </body>
 

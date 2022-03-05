@@ -147,3 +147,7 @@ canvas {
 	position:relative;
 	top:1px;
 }
+
+#error-wrapper{
+	display: none;
+}

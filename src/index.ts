@@ -8,10 +8,9 @@ import { loadAllIamgeFiles, loadJSON } from "./loaders";
 import PinsHandler, { acceptRatio } from "./PinsHandler";
 import Timer from "./Timer";
 import Vortex from "./Vortex";
+import Penelty from "./penelty";
 
-handleDisclamer();
-
-const DEBUGG = true;
+const DEBUGG = false;
 const startButton = document.getElementById('start-game')! as HTMLInputElement;
 const gameScreen = document.getElementById('gameScreen')!;
 const fullscreenBtn = document.getElementById('enter-full-screen')!;
@@ -20,6 +19,7 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 const timer = new Timer();
 const compositor = new Compositor();
+const penelty = new Penelty(compositor);
 const indicateTotal = new TotalIndicator(compositor);
 const helpUser = new UserHelper(compositor);
 const themeConfigData = await loadJSON<ThemeJSON>('/theme/config.json');
@@ -31,6 +31,7 @@ const animations: UpdateAnimation[] = [];
 const loadNextLevel = new Event('nextlevel');
 
 timer.update = function update(deltaTime: number) {
+    penelty.update();
     compositor.draw();
     indicateTotal.draw();
     animations.forEach(update => update(deltaTime));
@@ -118,6 +119,7 @@ async function loadLevel(url: string) {
         const pins = pinsHandler.find(x, y);
 
         if (pins.length === 0) {
+            penelty.trigger();
             return;
         }
 
@@ -180,7 +182,7 @@ startButton.addEventListener('click', () => {
     gameScreen.classList.remove('hide');
     startButton.classList.add('hide');
     fullscreenBtn.classList.remove('hide');
-    loadLevel('/L-8/config.json');
+    loadLevel('/L-1/config.json');
 })
 
 toggleFulscreen();
@@ -204,6 +206,7 @@ function toggleFulscreen() {
     }
 }
 
+handleDisclamer();
 function handleDisclamer() {
     const element = document.querySelector('div.disclaimer');
     if(!element) return;
