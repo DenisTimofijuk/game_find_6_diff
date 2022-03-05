@@ -180,7 +180,7 @@ startButton.addEventListener('click', () => {
     gameScreen.classList.remove('hide');
     startButton.classList.add('hide');
     fullscreenBtn.classList.remove('hide');
-    loadLevel('/L-1/config.json');
+    loadLevel('/L-8/config.json');
 })
 
 toggleFulscreen();
