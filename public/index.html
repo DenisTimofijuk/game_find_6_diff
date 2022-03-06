@@ -28,7 +28,8 @@
     </div>
 
     <div id="error-wrapper">
-      <p class="error-text">Your browser is not compatible. Please use a different browser.</p>
+      <h2 class="error-text">Your browser is incompatible. Please try another browser.</h2>
+      <p class="error-text">Jūsų naršyklė nepalaiko šio žaidimo. Bandykite naudoti kitą naršyklę.</p>
     </div>
 
     <div id="gameControll">
@@ -46,13 +47,24 @@
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <script>
     (function(){
-      const canv = document.createElement('canvas');
-      const ctx = canv.getContext('2d');
+      const error = document.getElementById('error-wrapper');
+      const screen = document.getElementById('game-screen-wrapper');
+      const gameControll = document.getElementById('gameControll');
       try {
-        ctx.filter = ''
-        console.log('browser is compatible.');
+        var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        if(window.document.documentMode || isSafari){
+          console.error('browser is incompatible.');
+          error.style.display = 'block';
+          screen.style.display = 'none';
+          gameControll.style.display = 'none';
+        }else{
+          console.log('browser is compatible.');
+        }        
       } catch (error) {
         console.error('browser is incompatible.');
+        error.style.display = 'block';
+        screen.style.display = 'none';
+        gameControll.style.display = 'none';
       }
     })()
   </script>

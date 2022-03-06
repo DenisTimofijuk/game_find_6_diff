@@ -151,3 +151,9 @@ canvas {
 #error-wrapper{
 	display: none;
 }
+.error-text{
+	color: red;
+}
+p.error-text{
+	font-size: large;
+}

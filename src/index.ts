@@ -114,6 +114,10 @@ async function loadLevel(url: string) {
     clickHandler = function (ev: MouseEvent) {
         ev.preventDefault();
         
+        if(penelty.active){
+            return;
+        }
+
         const x = acceptRatio(compositor, ev.offsetX);
         const y = acceptRatio(compositor, ev.offsetY);
         const pins = pinsHandler.find(x, y);
@@ -164,6 +168,7 @@ async function loadLevel(url: string) {
     window.addEventListener('nextlevel', loadHanlder);
     window.addEventListener('updatediffIndi', updatediffIndi);
 
+    penelty.reset();
     timer.start();
     backgroundMusic.forEach(music => music.play());
 
