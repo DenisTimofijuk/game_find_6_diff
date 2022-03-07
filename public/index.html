@@ -19,10 +19,14 @@
 
   <div class="container">
     <div id="game-screen-wrapper">
+      <div class="hide" id="level-info">
+        <div>Level name</div>
+        <div>Hint is available</div>
+      </div>
       <div class="hide" id="gameScreen">
         <div class="canvas-wrapper">
-          <div class="canvas-holder"><canvas id="screen-1" width="600" height="600"></canvas></div>
-          <div class="canvas-holder"><canvas id="screen-2" width="600" height="600"></canvas></div>
+          <div class="canvas-holder"><canvas id="screen-1" width="600" height="600">Your browser is incompatible. Please try another browser.</canvas></div>
+          <div class="canvas-holder"><canvas id="screen-2" width="600" height="600">Your browser is incompatible. Please try another browser.</canvas></div>
         </div>
       </div>
     </div>
@@ -33,8 +37,19 @@
     </div>
 
     <div id="gameControll">
-      <input type="button" value="Starting game..." id="start-game" class="redButton">
       <input type="button" class="blueButton hide" value="Enter full screen" id="enter-full-screen">
+    </div>
+    <div id="settings-screen" class="viewport-center">
+      <h2>Game settings</h2>
+      <div>
+        <span>Difficulty:</span>
+        <select class="cf-dropdown">
+          <option value="1">Easy</option>
+          <option value="2">Medium</option>
+          <option value="3">Hard</option>
+        </select>
+      </div>
+      <input type="button" value="Starting game..." id="start-game" class="redButton">
     </div>
   </div>
 
@@ -46,27 +61,27 @@
 
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <script>
-    (function(){
-      const error = document.getElementById('error-wrapper');
-      const screen = document.getElementById('game-screen-wrapper');
-      const gameControll = document.getElementById('gameControll');
-      try {
-        var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        if(window.document.documentMode || isSafari){
-          console.error('browser is incompatible.');
-          error.style.display = 'block';
-          screen.style.display = 'none';
-          gameControll.style.display = 'none';
-        }else{
-          console.log('browser is compatible.');
-        }        
-      } catch (error) {
-        console.error('browser is incompatible.');
-        error.style.display = 'block';
-        screen.style.display = 'none';
-        gameControll.style.display = 'none';
-      }
-    })()
+    // (function(){
+    //   const error = document.getElementById('error-wrapper');
+    //   const screen = document.getElementById('game-screen-wrapper');
+    //   const gameControll = document.getElementById('gameControll');
+    //   try {
+    //     var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    //     if(window.document.documentMode || isSafari){
+    //       console.error('browser is incompatible.');
+    //       error.style.display = 'block';
+    //       screen.style.display = 'none';
+    //       gameControll.style.display = 'none';
+    //     }else{
+    //       console.log('browser is compatible.');
+    //     }        
+    //   } catch (error) {
+    //     console.error('browser is incompatible.');
+    //     error.style.display = 'block';
+    //     screen.style.display = 'none';
+    //     gameControll.style.display = 'none';
+    //   }
+    // })()
   </script>
   <script type="module" src="/dist/index.js"></script>
 </body>

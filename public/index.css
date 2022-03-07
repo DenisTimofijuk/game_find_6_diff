@@ -1,6 +1,15 @@
+body{
+	background-color: #141414;
+	color: #e5e5e5;
+}
+
+h1{
+	color: #e50914;
+}
+
 canvas {
   /* margin: 2px; */
-  border: 1px solid brown;
+  /* border: 1px solid brown; */
   width: 100%;
 }
 
@@ -17,9 +26,12 @@ canvas {
 }
 
 #game-screen-wrapper{
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background: linear-gradient(-45deg, #7a3d2a, #741e3f, #135c77, #116955);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 @keyframes gradient {
     0% {
@@ -34,7 +46,7 @@ canvas {
 }
 
 .canvas-holder{
-	margin: 3px;
+	margin: 2px;
 	width: 100%;
 }
 
@@ -97,7 +109,6 @@ canvas {
 	top:1px;
 }
 
-
 .redButton {
 	box-shadow:inset 0px 1px 0px 0px #f5978e;
 	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
@@ -152,8 +163,66 @@ canvas {
 	display: none;
 }
 .error-text{
-	color: red;
+	color: #e159f1;
 }
 p.error-text{
 	font-size: large;
+}
+
+.viewport-center{
+	position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#start-game{
+	width: 100%;
+}
+
+#settings-screen{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cf-dropdown {
+    height: 24px;
+    line-height: 20px;
+    padding: 0 32px 3px 0;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    font-family: inherit;
+    font-size: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='10px' height='5px' viewBox='0 0 10 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,0 5,5 10,0' fill='rgba(0, 0, 0, 0.4)'%3E%3C/polygon%3E%3C/svg%3E");
+    background-position: right 4px center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    cursor: pointer;
+	font-weight: bold;
+	margin-left: 1vw;
+}
+
+#level-info{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0px 5px 1px 5px;
+	font-size: 1.1em;
+}
+
+#settings-screen div{
+	margin-bottom: 2vh;
+}
+
+@media (min-width:1000px) {
+	#level-info{
+		font-size: 2em;
+	}	
 }

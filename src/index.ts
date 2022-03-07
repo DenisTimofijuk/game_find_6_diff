@@ -11,6 +11,8 @@ import Vortex from "./Vortex";
 import Penelty from "./penelty";
 
 const DEBUGG = false;
+const settingsScreen = document.getElementById('settings-screen')!;
+const levelinfo = document.getElementById('level-info')!;
 const startButton = document.getElementById('start-game')! as HTMLInputElement;
 const gameScreen = document.getElementById('gameScreen')!;
 const fullscreenBtn = document.getElementById('enter-full-screen')!;
@@ -185,8 +187,9 @@ startButton.classList.add('greenButton');
 
 startButton.addEventListener('click', () => {
     gameScreen.classList.remove('hide');
-    startButton.classList.add('hide');
+    levelinfo.classList.remove('hide');
     fullscreenBtn.classList.remove('hide');
+    settingsScreen.classList.add('hide');
     loadLevel('/L-1/config.json');
 })
 
@@ -198,7 +201,7 @@ function contextMenuHandler(e:MouseEvent) {
 
 
 function toggleFulscreen() {
-    const screenElement = document.getElementById("gameScreen")! as HTMLDivElement;
+    const screenElement = document.getElementById("game-screen-wrapper")! as HTMLDivElement; //gameScreen
     const button = document.getElementById("enter-full-screen")!;
     button.addEventListener('click', handler);
 

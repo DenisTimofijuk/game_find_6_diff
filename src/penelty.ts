@@ -3,7 +3,7 @@ import type Compositor from "./Compositor";
 const CLICKS_LIMIT = 3;
 const DELTA_TIME = 1000;
 const BLUR_LIMIT = 15;
-const VELOCITY = 0.1;
+const VELOCITY = 0.2;
 
 export default class Penelty {
     active: boolean;
