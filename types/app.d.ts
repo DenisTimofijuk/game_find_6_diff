@@ -2,8 +2,18 @@ interface ThemeJSON {
     "piano": string[];
     "numbers": string[];
     "vortex": string[];
+    "difficulty":{
+        [K in DifficultyName]: Difficulty;
+    }
+}
+
+type DifficultyName = 'Normal' | 'Hard'
+interface Difficulty{
+    "help-time-to-wait": number,
+    "levels": string[]
 }
 interface Level_Config_JSON {
+    "name": string;
     "images": string[];
     "background-audio":{
         "url":string;
@@ -12,7 +22,6 @@ interface Level_Config_JSON {
     "audio": JSON_audio;
     "pins": string[];
     "totalDiffs": number;
-    "next-level": string;
     "animations": string[];
     "indication":{
         "x": number;

@@ -1,3 +1,6 @@
+import "../public/index.css";
+import "../public/checkbox.css";
+
 import { GameAudio, loadAudioBoard } from "./AudioBoard";
 import Compositor from "./Compositor";
 import { exitFullScreen, isFullScreen, requestFullScreen } from "./fullscreen";
@@ -10,20 +13,18 @@ import Timer from "./Timer";
 import Vortex from "./Vortex";
 import Penelty from "./penelty";
 
-const DEBUGG = false;
-const settingsScreen = document.getElementById('settings-screen')!;
-const levelinfo = document.getElementById('level-info')!;
-const startButton = document.getElementById('start-game')! as HTMLInputElement;
-const gameScreen = document.getElementById('gameScreen')!;
-const fullscreenBtn = document.getElementById('enter-full-screen')!;
+const DEBUGG = true;
+const difficulty = document.getElementById('difficulty') as HTMLSelectElement;
+const bgmusicInput = document.getElementById('bg-music-enabled') as HTMLInputElement;
+let difficultyKey: DifficultyName;
 // @ts-ignore
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 const timer = new Timer();
 const compositor = new Compositor();
 const penelty = new Penelty(compositor);
-const indicateTotal = new TotalIndicator(compositor);
 const helpUser = new UserHelper(compositor);
+const indicateTotal = new TotalIndicator(compositor);
 const themeConfigData = await loadJSON<ThemeJSON>('/theme/config.json');
 const audioBoard = await loadAudioBoard(themeConfigData.piano, audioContext);
 const vortex = new Vortex(compositor);
@@ -31,6 +32,7 @@ await indicateTotal.initBuffer(themeConfigData.numbers);
 await vortex.initBuffer(themeConfigData.vortex);
 const animations: UpdateAnimation[] = [];
 const loadNextLevel = new Event('nextlevel');
+let currentProgress = 0;
 
 timer.update = function update(deltaTime: number) {
     penelty.update();
@@ -79,10 +81,11 @@ const diffHandler = {
 }
 
 function initNextLevelLoading() {
-    window.setTimeout(()=>window.dispatchEvent(loadNextLevel), 3000);
+    window.setTimeout(()=>window.dispatchEvent(loadNextLevel), 2000);
 }
 
 async function loadLevel(url: string) {
+    currentProgress++;
     animations.push(updateInspector);
     compositor.screeenA.canvas.removeEventListener('click', clickHandler);
     compositor.screeenB.canvas.removeEventListener('click', clickHandler);
@@ -91,13 +94,15 @@ async function loadLevel(url: string) {
     compositor.displayLoading();
     const levelConfigData = await loadJSON<Level_Config_JSON>(url);
     let backgroundMusic: GameAudio[] = [];
-    levelConfigData["background-audio"].forEach(async (element) => {
-        const music = new GameAudio();
-        backgroundMusic.push(music);
-        await music.load(element.url);
-        music.audio.loop = true;
-        music.setVolume(element.volume);
-    })
+    if(bgmusicInput.checked){
+        levelConfigData["background-audio"].forEach(async (element) => {
+            const music = new GameAudio();
+            backgroundMusic.push(music);
+            await music.load(element.url);
+            music.audio.loop = true;
+            music.setVolume(element.volume);
+        })
+    }    
     const images = await loadAllIamgeFiles(levelConfigData.images);
     let pinsHandler: PinsHandler = new PinsHandler(levelConfigData.pins);
     let audioName = 0;
@@ -143,20 +148,23 @@ async function loadLevel(url: string) {
         helpUser.set(pinsHandler!.getPins(0));
         
         if (diffHandler.diffs === 0) {
+            helpUser.hide();
             initNextLevelLoading();
         }
     }
     
     loadHanlder = function () {
-        if (levelConfigData["next-level"]) {
+        if (themeConfigData.difficulty[difficultyKey].levels[currentProgress]) {
             backgroundMusic.forEach(music => music.stop());
             timer.stop();
             // @ts-ignore
             pinsHandler = null;
             animations.length = 0;
-            loadLevel(levelConfigData["next-level"]);
+            loadLevel(themeConfigData.difficulty[difficultyKey].levels[currentProgress]);
         } else {
-            console.warn('Next level not found.')
+            console.log('Resetting game.')
+            currentProgress = 0;
+            loadHanlder();
         }
     }
 
@@ -171,6 +179,8 @@ async function loadLevel(url: string) {
     window.addEventListener('updatediffIndi', updatediffIndi);
 
     penelty.reset();
+    document.getElementById('level-name')!.innerHTML = levelConfigData.name;
+    document.getElementById('players-progress')!.innerHTML = `${currentProgress} / ${themeConfigData.difficulty[difficultyKey].levels.length}`
     timer.start();
     backgroundMusic.forEach(music => music.play());
 
@@ -180,17 +190,20 @@ async function loadLevel(url: string) {
     }
 }
 
-
+const startButton = document.getElementById('start-game')! as HTMLInputElement;
 startButton.value = 'Start';
 startButton.classList.remove('redButton');
 startButton.classList.add('greenButton');
 
 startButton.addEventListener('click', () => {
-    gameScreen.classList.remove('hide');
-    levelinfo.classList.remove('hide');
-    fullscreenBtn.classList.remove('hide');
-    settingsScreen.classList.add('hide');
-    loadLevel('/L-1/config.json');
+    document.getElementById('gameScreen')!.classList.remove('hide');
+    document.getElementById('level-info')!.classList.remove('hide');
+    document.getElementById('enter-full-screen')!.classList.remove('hide');
+    document.getElementById('settings-screen')!.classList.add('hide');
+
+    difficultyKey = difficulty.value as DifficultyName;
+    helpUser.setDellay(themeConfigData.difficulty[difficultyKey]["help-time-to-wait"]);
+    loadLevel(themeConfigData.difficulty[difficultyKey].levels[currentProgress]);
 })
 
 toggleFulscreen();

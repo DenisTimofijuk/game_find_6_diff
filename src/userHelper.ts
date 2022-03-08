@@ -1,9 +1,9 @@
+import "../public/progress.css";
 import type Compositor from "./Compositor";
 import Layer from "./Layer";
 
-
-const TIME_TO_WAIT = 2000;
-const RADIUS_MAX = 30;
+const RADIUS_MAX = 40;
+const HINT_LABEL = 'Hint is ready';
 
 export default class UserHelper {
     layer: Layer;
@@ -11,8 +11,13 @@ export default class UserHelper {
     _radius: number;
     private _koef: number;
     private _rMax: number;
-    timer: number;
+    timer!: number;
+    time_to_wait!: number;
+    hintIco: HTMLElement;
+    ready: boolean;
     constructor(public compositor:Compositor) {
+        this.ready = false;
+        this.hintIco = document.getElementById('hint-ico')!;
         this.layer = new Layer(compositor.screeenA.canvas.width, compositor.screeenA.canvas.height);
         this.pos = {
             x:100,
@@ -23,7 +28,13 @@ export default class UserHelper {
         this._rMax = RADIUS_MAX;
         this.layer.ctx.strokeStyle = 'yellow';
         this.layer.ctx.lineWidth = 2;
-        this.timer = TIME_TO_WAIT;
+
+        document.querySelector('.progress')!.addEventListener('click', this.clickHandler.bind(this));
+    }
+
+    setDellay(value:number){
+        this.time_to_wait = value;
+        this.timer = value;
     }
 
     get radius(){
@@ -41,13 +52,36 @@ export default class UserHelper {
         return this._radius;
     }
 
+    get progress(){
+        return this.timer < 0 ? 100 : Math.round((this.time_to_wait - this.timer) * 100 / this.time_to_wait);
+    }
+
+
     toggleKoef(){
         this._koef *= -1;
     }
 
+    handleProgressBarr(){
+        if(this.progress < 100){
+            this.hintIco.style.width = `${this.progress}%`;
+            if(!this.hintIco.classList.contains('progress-bar-loading')){
+                this.hintIco.classList.remove('progress-bar-ready');
+                this.hintIco.classList.add('progress-bar-loading');
+            }            
+        }else{
+            if(!this.hintIco.classList.contains('progress-bar-ready')){
+                this.hintIco.classList.remove('progress-bar-loading');
+                this.hintIco.classList.add('progress-bar-ready');
+                this.hintIco.style.width = `${this.progress}%`;
+                this.hintIco.innerText = HINT_LABEL;
+            }            
+        }        
+    }
+
     update(){
         this.timer--;
-        if(this.timer >= 0) return;
+        this.handleProgressBarr();
+        if(!this.ready) return;
         
         this.animate();
         this.compositor.screeenA.ctx.drawImage(this.layer.canv, 0, 0);
@@ -67,6 +101,22 @@ export default class UserHelper {
         this.pos.x = x + w/2;
         this.pos.y = y + h/2;
         this._radius = 1;
-        this.timer = TIME_TO_WAIT;
+        this.timer = this.time_to_wait;
+        this.ready = false;
+        this.hintIco.innerText = '';
+        this.show();
+    }
+
+    clickHandler(){
+        if(this.timer >= 0) return;
+        this.ready = true;
+    }
+
+    hide(){
+        this.hintIco.classList.add('hide');
+    }
+
+    show(){
+        this.hintIco.classList.remove('hide');
     }
 }

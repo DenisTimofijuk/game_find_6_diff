@@ -1,0 +1,27 @@
+{
+    "name": "Įžanginis",
+    "images": [
+        "/L-0/img/a.png",
+        "/L-0/img/b.png"
+    ],
+    "background-audio":[{
+        "url":"/L-1/audio/moon-sound_.mp3",
+        "volume": 0.0
+    }],
+    "audio": {
+    },
+    "pins": [
+        37,89,190,278,
+        236,463,44,43
+    ],
+    "totalDiffs": 2,
+    "animations": [
+    ],
+    "indication":{
+        "x": 10,
+        "y": 50,
+        "size": 80,
+        "globalCompositeOperation": "luminosity",
+        "globalAlpha": 1
+    }
+}

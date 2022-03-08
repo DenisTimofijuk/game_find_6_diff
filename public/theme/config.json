@@ -34,5 +34,25 @@
         "/theme/img/vortex/4.png",
         "/theme/img/vortex/5.png",
         "/theme/img/vortex/6.png"
-    ]
+    ],
+    "difficulty": {
+        "Normal": {
+            "help-time-to-wait": 500,
+            "levels": [
+                "/L-0/config.json",
+                "/L-1/config.json",
+                "/L-3/config.json",
+                "/L-4/config.json",
+                "/L-5/config.json"
+            ]
+        },
+        "Hard": {
+            "help-time-to-wait": 4000,
+            "levels": [
+                "/L-2/config.json",
+                "/L-6/config.json",
+                "/L-8/config.json"
+            ]
+        }
+    }
 }
