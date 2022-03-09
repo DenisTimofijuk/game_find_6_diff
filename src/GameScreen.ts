@@ -31,9 +31,9 @@ export default class GameScreen {
 
     inidcateLoading(){
         const ctx = this.buffer.getContext('2d')!;
-        ctx.font = "30px Comic Sans MS";
+        ctx.font = "60px Comic Sans MS";
         ctx.fillStyle = "red";
         ctx.textAlign = "center";
-        ctx.fillText("Loading level...", this.buffer.width/2, this.buffer.height/2);
+        ctx.fillText("Loading...", this.buffer.width/2, this.buffer.height/2);
     }
 }

@@ -13,7 +13,7 @@ import Timer from "./Timer";
 import Vortex from "./Vortex";
 import Penelty from "./penelty";
 
-const DEBUGG = true;
+const DEBUGG = /localhost/.test(window.location.href);
 const difficulty = document.getElementById('difficulty') as HTMLSelectElement;
 const bgmusicInput = document.getElementById('bg-music-enabled') as HTMLInputElement;
 let difficultyKey: DifficultyName;
