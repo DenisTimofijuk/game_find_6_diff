@@ -5,8 +5,8 @@
         "/L-0/img/b.png"
     ],
     "background-audio":[{
-        "url":"/L-1/audio/moon-sound_.mp3",
-        "volume": 0.0
+        "url":"/L-0/audio/bird_seagull.mp3",
+        "volume": 0.5
     }],
     "audio": {
     },

@@ -18,11 +18,11 @@
 
   <div class="container">
     <div id="game-screen-wrapper">
-      <div class="hide" id="level-info">
+      <div class="visible-no" id="level-info">
         <div style="border: 1px solid transparent;"><span id="level-name"></span> <span id="players-progress"></span></div>
-        <div class="progress"><div class="progress-bar" id="hint-ico"></div></div>
+        <div id="progress-barr-wrapper"><span class="help-ico"></span><div class="progress"><span id="progress-barr" class="progress-bar hide"></span></div></div>
       </div>
-      <div class="hide" id="gameScreen">
+      <div class="visible-no" id="gameScreen">
         <div class="canvas-wrapper">
           <div class="canvas-holder"><canvas id="screen-1" width="600" height="600">Your browser is incompatible. Please try another browser.</canvas></div>
           <div class="canvas-holder"><canvas id="screen-2" width="600" height="600">Your browser is incompatible. Please try another browser.</canvas></div>
@@ -36,7 +36,7 @@
     </div>
 
     <div id="gameControll">
-      <input type="button" class="blueButton hide" value="Enter full screen" id="enter-full-screen">
+      <input type="button" class="blueButton visible-no" value="Enter full screen" id="enter-full-screen">
     </div>
     <div id="settings-screen" class="viewport-center">
       <h2>Game settings</h2>

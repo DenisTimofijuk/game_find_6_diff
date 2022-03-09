@@ -1,20 +1,42 @@
   
 .progress{
     width: 100%;
-    max-width: 260px;
+    max-width: 100%;
     border-radius: 3px;
     overflow: hidden;
     border: 1px solid white;
     color: #141414;
     text-align: center;
+    height: 1vh;
+}
+
+#progress-barr-wrapper{
+  width: 15vw;
+  display: flex;
+  align-items: center;
+}
+
+.help-ico{
+  width: 5vh;
+  height: 4vh;
+  background-image: url(/theme/img/help.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@media (max-width:1000px) {
+	.help-ico{
+		max-width: 20px;
+    max-height: 20px;
+	}	
 }
 
 .progress-bar-loading{
     display: block;
     height: 100%;
-    background: linear-gradient(90deg,#ffd33d,#adea4a 17%,#d8ff4b 34%,#01feff 51%,#ffd33d 68%,#4ae5ea 85%,#ffed4b);
-    background-size: 300% 100%;
-    animation: progress-animation 2s linear infinite;
+    background: linear-gradient(90deg, rgb(253, 253, 100), rgb(196, 196, 29), rgb(240, 240, 3));
+    background-size: 100% 100%;
 }
 
 .progress-bar-ready{
@@ -25,7 +47,7 @@
     animation: progress-animation 2s linear infinite;
 }
 
-.progress-bar-ready:hover{
+#progress-barr-wrapper:hover{
     cursor: pointer;
 }
     
@@ -37,9 +59,3 @@
     background-position: 0;
   }
 }
-
-@media (max-width:600px) {
-	.progress{
-        max-width: 100px;;
-    }
-  }

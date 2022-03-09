@@ -172,17 +172,18 @@ async function loadLevel(url: string) {
         helpUser.set(pinsHandler!.getPins(0));    
     }
 
-    helpUser.set(pinsHandler!.getPins(0));
+    
     compositor.screeenA.canvas.addEventListener('click', clickHandler);
     compositor.screeenB.canvas.addEventListener('click', clickHandler);
     window.addEventListener('nextlevel', loadHanlder);
     window.addEventListener('updatediffIndi', updatediffIndi);
 
-    penelty.reset();
     document.getElementById('level-name')!.innerHTML = levelConfigData.name;
     document.getElementById('players-progress')!.innerHTML = `${currentProgress} / ${themeConfigData.difficulty[difficultyKey].levels.length}`
     timer.start();
     backgroundMusic.forEach(music => music.play());
+    penelty.reset();
+    helpUser.set(pinsHandler!.getPins(0));
 
     async function addAnimation(animation: AnimationFunction,) {
         const update = await animation(diffHandler, images, compositor, pinsHandler!);
@@ -196,10 +197,10 @@ startButton.classList.remove('redButton');
 startButton.classList.add('greenButton');
 
 startButton.addEventListener('click', () => {
-    document.getElementById('gameScreen')!.classList.remove('hide');
-    document.getElementById('level-info')!.classList.remove('hide');
-    document.getElementById('enter-full-screen')!.classList.remove('hide');
-    document.getElementById('settings-screen')!.classList.add('hide');
+    document.getElementById('gameScreen')!.classList.remove('visible-no');
+    document.getElementById('level-info')!.classList.remove('visible-no');
+    document.getElementById('enter-full-screen')!.classList.remove('visible-no');
+    document.getElementById('settings-screen')!.classList.add('visible-no');
 
     difficultyKey = difficulty.value as DifficultyName;
     helpUser.setDellay(themeConfigData.difficulty[difficultyKey]["help-time-to-wait"]);

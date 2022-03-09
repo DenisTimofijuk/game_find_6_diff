@@ -55,9 +55,12 @@ canvas {
 	margin: auto;
 }
 
-.hide {
-  /* display: none !important; */
+.visible-no {
   visibility: hidden;
+}
+
+.hide{
+	display: none !important;
 }
 
 .text-center{
@@ -215,6 +218,7 @@ p.error-text{
 	justify-content: space-between;
 	padding: 0px 5px 1px 5px;
 	font-size: 1.1em;
+	align-items: center;
 }
 
 #settings-screen div{

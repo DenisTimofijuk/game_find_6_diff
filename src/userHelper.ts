@@ -13,11 +13,11 @@ export default class UserHelper {
     private _rMax: number;
     timer!: number;
     time_to_wait!: number;
-    hintIco: HTMLElement;
     ready: boolean;
+    progressbarr: HTMLElement;
     constructor(public compositor:Compositor) {
         this.ready = false;
-        this.hintIco = document.getElementById('hint-ico')!;
+        this.progressbarr = document.getElementById('progress-barr')!;
         this.layer = new Layer(compositor.screeenA.canvas.width, compositor.screeenA.canvas.height);
         this.pos = {
             x:100,
@@ -29,7 +29,7 @@ export default class UserHelper {
         this.layer.ctx.strokeStyle = 'yellow';
         this.layer.ctx.lineWidth = 2;
 
-        document.querySelector('.progress')!.addEventListener('click', this.clickHandler.bind(this));
+        document.querySelector('#progress-barr-wrapper')!.addEventListener('click', this.clickHandler.bind(this));
     }
 
     setDellay(value:number){
@@ -63,17 +63,16 @@ export default class UserHelper {
 
     handleProgressBarr(){
         if(this.progress < 100){
-            this.hintIco.style.width = `${this.progress}%`;
-            if(!this.hintIco.classList.contains('progress-bar-loading')){
-                this.hintIco.classList.remove('progress-bar-ready');
-                this.hintIco.classList.add('progress-bar-loading');
+            this.progressbarr.style.width = `${this.progress}%`;
+            if(!this.progressbarr.classList.contains('progress-bar-loading')){
+                this.progressbarr.classList.remove('progress-bar-ready');
+                this.progressbarr.classList.add('progress-bar-loading');
             }            
         }else{
-            if(!this.hintIco.classList.contains('progress-bar-ready')){
-                this.hintIco.classList.remove('progress-bar-loading');
-                this.hintIco.classList.add('progress-bar-ready');
-                this.hintIco.style.width = `${this.progress}%`;
-                this.hintIco.innerText = HINT_LABEL;
+            if(!this.progressbarr.classList.contains('progress-bar-ready')){
+                this.progressbarr.classList.remove('progress-bar-loading');
+                this.progressbarr.classList.add('progress-bar-ready');
+                this.progressbarr.style.width = `${this.progress}%`;
             }            
         }        
     }
@@ -103,7 +102,6 @@ export default class UserHelper {
         this._radius = 1;
         this.timer = this.time_to_wait;
         this.ready = false;
-        this.hintIco.innerText = '';
         this.show();
     }
 
@@ -113,10 +111,10 @@ export default class UserHelper {
     }
 
     hide(){
-        this.hintIco.classList.add('hide');
+        this.progressbarr.classList.add('hide');
     }
 
     show(){
-        this.hintIco.classList.remove('hide');
+        this.progressbarr.classList.remove('hide');
     }
 }
