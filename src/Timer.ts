@@ -31,7 +31,7 @@ export default class Timer {
   }
 
   enqueue() {
-    this.enabled && requestAnimationFrame(this.updateProxy);
+    this.enabled && window.requestAnimationFrame(this.updateProxy);
   }
 
   start() {

@@ -21,19 +21,17 @@ export default class GameScreen {
     }
 
     saveBuffer() {
-        const ctx = this.buffer.getContext('2d');
-        ctx?.drawImage(this.canvas, 0, 0);
+        this.bufferCtx.drawImage(this.canvas, 0, 0);
     }
 
     initBuffer(img:HTMLImageElement){
         this.bufferCtx.drawImage(img, 0, 0);
     }
 
-    inidcateLoading(){
-        const ctx = this.buffer.getContext('2d')!;
-        ctx.font = "60px Comic Sans MS";
-        ctx.fillStyle = "red";
-        ctx.textAlign = "center";
-        ctx.fillText("Loading...", this.buffer.width/2, this.buffer.height/2);
-    }
+    // inidcateLoading(){
+    //     this.bufferCtx.font = "60px Comic Sans MS";
+    //     this.bufferCtx.fillStyle = "red";
+    //     this.bufferCtx.textAlign = "center";
+    //     this.bufferCtx.fillText("Loading...", this.buffer.width/2, this.buffer.height/2);
+    // }
 }

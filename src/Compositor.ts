@@ -23,12 +23,12 @@ export default class Compositor {
         this.screeenA.bufferCtx.drawImage(this.screeenB.buffer, x, y, w, h, x, y, w, h);
     }
 
-    displayLoading(){
-        this.screeenA.clear();
-        this.screeenA.inidcateLoading();
-        this.screeenA.drawBuffer();
-        this.screeenB.clear();
-        this.screeenB.inidcateLoading();
-        this.screeenB.drawBuffer();
-    }
+    // displayLoading(){
+    //     this.screeenA.clear();
+    //     this.screeenA.inidcateLoading();
+    //     this.screeenA.drawBuffer();
+    //     this.screeenB.clear();
+    //     this.screeenB.inidcateLoading();
+    //     this.screeenB.drawBuffer();
+    // }
 }

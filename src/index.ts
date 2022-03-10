@@ -12,16 +12,16 @@ import PinsHandler, { acceptRatio } from "./PinsHandler";
 import Timer from "./Timer";
 import Vortex from "./Vortex";
 import Penelty from "./penelty";
+import LoaderIndicator from "./LoaderIndicator";
 
 const DEBUGG = /localhost/.test(window.location.href);
 const difficulty = document.getElementById('difficulty') as HTMLSelectElement;
 const bgmusicInput = document.getElementById('bg-music-enabled') as HTMLInputElement;
-let difficultyKey: DifficultyName;
-// @ts-ignore
-const AudioContext = window.AudioContext || window.webkitAudioContext;
+const AudioContext = window.AudioContext;
 const audioContext = new AudioContext();
 const timer = new Timer();
 const compositor = new Compositor();
+const laodingScreen = new LoaderIndicator(compositor);
 const penelty = new Penelty(compositor);
 const helpUser = new UserHelper(compositor);
 const indicateTotal = new TotalIndicator(compositor);
@@ -33,6 +33,7 @@ await vortex.initBuffer(themeConfigData.vortex);
 const animations: UpdateAnimation[] = [];
 const loadNextLevel = new Event('nextlevel');
 let currentProgress = 0;
+let difficultyKey: DifficultyName;
 
 timer.update = function update(deltaTime: number) {
     penelty.update();
@@ -71,7 +72,7 @@ function updateDiffIndicator() {
 
 let clickHandler = clickEventManager();
 let loadHanlder = loadNextEventManager();
-let updatediffIndi = updateDiffIndicator();
+let updatediffFromAnimations = updateDiffIndicator();
 
 const diffHandler = {
     set init(total: number) {
@@ -85,37 +86,49 @@ function initNextLevelLoading() {
 }
 
 async function loadLevel(url: string) {
+    laodingScreen.init();
     currentProgress++;
     animations.push(updateInspector);
     compositor.screeenA.canvas.removeEventListener('click', clickHandler);
     compositor.screeenB.canvas.removeEventListener('click', clickHandler);
     window.removeEventListener('nextlevel', loadHanlder);
-    window.removeEventListener('updatediffIndi', updatediffIndi);
-    compositor.displayLoading();
+    window.removeEventListener('updatediffIndi', updatediffFromAnimations);
+    
+    laodingScreen.showProgress('Loading Configurations...');
     const levelConfigData = await loadJSON<Level_Config_JSON>(url);
+    laodingScreen.showProgress('Configurations - Ok.');
+    
     let backgroundMusic: GameAudio[] = [];
     if(bgmusicInput.checked){
-        levelConfigData["background-audio"].forEach(async (element) => {
+        for(let element of levelConfigData["background-audio"]){
+            laodingScreen.showProgress('Loading background music...');
             const music = new GameAudio();
             backgroundMusic.push(music);
             await music.load(element.url);
             music.audio.loop = true;
             music.setVolume(element.volume);
-        })
-    }    
+            laodingScreen.showProgress('background music - Ok.');
+        };
+    };    
+
+    laodingScreen.showProgress('Loading images...');
     const images = await loadAllIamgeFiles(levelConfigData.images);
+    laodingScreen.showProgress('images - Ok.');
+    
     let pinsHandler: PinsHandler = new PinsHandler(levelConfigData.pins);
     let audioName = 0;
-    
     diffHandler.init = levelConfigData.totalDiffs;
-
     compositor.initBuffers(images);
     indicateTotal.setup(levelConfigData.indication);
     indicateTotal.update(levelConfigData.totalDiffs);
 
     for(let url of levelConfigData.animations){
+        laodingScreen.showProgress('Importing animation...');
         const { default: animation } = await import(`./${url}`);
+        laodingScreen.showProgress('import - Ok.');
+        laodingScreen.showProgress('Adding animation...');
         await addAnimation(animation);
+        laodingScreen.showProgress('animation - Ok.');
     }
 
     clickHandler = function (ev: MouseEvent) {
@@ -168,22 +181,27 @@ async function loadLevel(url: string) {
         }
     }
 
-    updatediffIndi = function(){
-        helpUser.set(pinsHandler!.getPins(0));    
+    updatediffFromAnimations = function(){
+        if(isNaN(helpUser.pos.x)){
+            helpUser.set(pinsHandler!.getPins(0));    
+        }        
     }
 
-    
     compositor.screeenA.canvas.addEventListener('click', clickHandler);
     compositor.screeenB.canvas.addEventListener('click', clickHandler);
     window.addEventListener('nextlevel', loadHanlder);
-    window.addEventListener('updatediffIndi', updatediffIndi);
+    window.addEventListener('updatediffIndi', updatediffFromAnimations);
 
     document.getElementById('level-name')!.innerHTML = levelConfigData.name;
     document.getElementById('players-progress')!.innerHTML = `${currentProgress} / ${themeConfigData.difficulty[difficultyKey].levels.length}`
-    timer.start();
-    backgroundMusic.forEach(music => music.play());
-    penelty.reset();
+    laodingScreen.showProgress('All done.');
+        
     helpUser.set(pinsHandler!.getPins(0));
+    window.setTimeout(()=>{
+        penelty.reset();     
+        timer.start();
+        backgroundMusic.forEach(music => music.play());
+    },500);   
 
     async function addAnimation(animation: AnimationFunction,) {
         const update = await animation(diffHandler, images, compositor, pinsHandler!);

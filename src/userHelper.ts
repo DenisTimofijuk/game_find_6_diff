@@ -74,14 +74,15 @@ export default class UserHelper {
                 this.progressbarr.classList.add('progress-bar-ready');
                 this.progressbarr.style.width = `${this.progress}%`;
             }            
-        }        
+        }
     }
 
     update(){
+        if(isNaN(this.pos.x)) return;
         this.timer--;
         this.handleProgressBarr();
-        if(!this.ready) return;
         
+        if(!this.ready) return;
         this.animate();
         this.compositor.screeenA.ctx.drawImage(this.layer.canv, 0, 0);
         this.compositor.screeenB.ctx.drawImage(this.layer.canv, 0, 0);
@@ -102,6 +103,7 @@ export default class UserHelper {
         this._radius = 1;
         this.timer = this.time_to_wait;
         this.ready = false;
+        this.handleProgressBarr();
         this.show();
     }
 
