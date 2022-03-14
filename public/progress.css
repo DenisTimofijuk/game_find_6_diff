@@ -11,16 +11,16 @@
 }
 
 #progress-barr-wrapper{
-  width: 15vw;
+  /* width: 15vw; */
   display: flex;
   align-items: center;
 }
 
 .help-ico{
-  width: 5vh;
+  width: 4vh;
   height: 4vh;
   background-image: url(/theme/img/help.png);
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }

@@ -9,8 +9,9 @@ interface ThemeJSON {
 
 type DifficultyName = 'Normal' | 'Hard'
 interface Difficulty{
-    "help-time-to-wait": number,
-    "levels": string[]
+    "levels": string[];
+    "init-helps": number;
+    "max-available-helps": number;
 }
 interface Level_Config_JSON {
     "name": string;

@@ -11,13 +11,16 @@ export default class UserHelper {
     _radius: number;
     private _koef: number;
     private _rMax: number;
-    timer!: number;
-    time_to_wait!: number;
-    ready: boolean;
-    progressbarr: HTMLElement;
+    active: boolean;
+    clicksPerLevel: number;
+    availableHelps: number;
+    wrapper: HTMLDivElement;
+    maxHelps: number;
     constructor(public compositor:Compositor) {
-        this.ready = false;
-        this.progressbarr = document.getElementById('progress-barr')!;
+        this.active = false;
+        this.clicksPerLevel = 1;
+        this.availableHelps = 1;
+        this.maxHelps = 1;
         this.layer = new Layer(compositor.screeenA.canvas.width, compositor.screeenA.canvas.height);
         this.pos = {
             x:100,
@@ -29,12 +32,8 @@ export default class UserHelper {
         this.layer.ctx.strokeStyle = 'yellow';
         this.layer.ctx.lineWidth = 2;
 
-        document.querySelector('#progress-barr-wrapper')!.addEventListener('click', this.clickHandler.bind(this));
-    }
-
-    setDellay(value:number){
-        this.time_to_wait = value;
-        this.timer = value;
+        this.wrapper = document.getElementById('progress-barr-wrapper') as HTMLDivElement
+        this.wrapper.addEventListener('click', this.clickHandler.bind(this));
     }
 
     get radius(){
@@ -52,37 +51,14 @@ export default class UserHelper {
         return this._radius;
     }
 
-    get progress(){
-        return this.timer < 0 ? 100 : Math.round((this.time_to_wait - this.timer) * 100 / this.time_to_wait);
-    }
-
 
     toggleKoef(){
         this._koef *= -1;
     }
 
-    handleProgressBarr(){
-        if(this.progress < 100){
-            this.progressbarr.style.width = `${this.progress}%`;
-            if(!this.progressbarr.classList.contains('progress-bar-loading')){
-                this.progressbarr.classList.remove('progress-bar-ready');
-                this.progressbarr.classList.add('progress-bar-loading');
-            }            
-        }else{
-            if(!this.progressbarr.classList.contains('progress-bar-ready')){
-                this.progressbarr.classList.remove('progress-bar-loading');
-                this.progressbarr.classList.add('progress-bar-ready');
-                this.progressbarr.style.width = `${this.progress}%`;
-            }            
-        }
-    }
 
-    update(){
-        if(isNaN(this.pos.x)) return;
-        this.timer--;
-        this.handleProgressBarr();
-        
-        if(!this.ready) return;
+    update(){        
+        if(!this.active) return;
         this.animate();
         this.compositor.screeenA.ctx.drawImage(this.layer.canv, 0, 0);
         this.compositor.screeenB.ctx.drawImage(this.layer.canv, 0, 0);
@@ -101,22 +77,53 @@ export default class UserHelper {
         this.pos.x = x + w/2;
         this.pos.y = y + h/2;
         this._radius = 1;
-        this.timer = this.time_to_wait;
-        this.ready = false;
-        this.handleProgressBarr();
-        this.show();
+        this.active = false;
     }
 
     clickHandler(){
-        if(this.timer >= 0) return;
-        this.ready = true;
+        if(this.active) return;
+
+        if(this.availableHelps > 0){
+            this.active = true;
+            this.clicksPerLevel++;
+            this.availableHelps--;
+            this.removeIcon();
+        }
     }
 
-    hide(){
-        this.progressbarr.classList.add('hide');
+    initOnLevel(){
+        console.log(this.clicksPerLevel);
+
+        if(this.clicksPerLevel === 0){
+            this.addHelp();
+        }else{
+            this.clicksPerLevel = 0;
+        };
     }
 
-    show(){
-        this.progressbarr.classList.remove('hide');
+    addHelp(){
+        if(this.availableHelps >= this.maxHelps){
+            return;
+        }
+        this.availableHelps++;
+        this.addIcon();
+    }
+
+    addIcon(){
+        const element = document.createElement('span');
+        element.classList.add('help-ico');
+        this.wrapper.appendChild(element);
+    }
+
+    removeIcon(){
+        this.wrapper.removeChild(this.wrapper.childNodes[0]);
+    }
+
+    initOnGame(availableHelps:number, maxHelps:number){
+        this.availableHelps = availableHelps;
+        this.maxHelps = maxHelps;
+        for(let i=0; i<availableHelps; i++){
+            this.addIcon();
+        }
     }
 }

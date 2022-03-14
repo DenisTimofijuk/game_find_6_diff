@@ -37,7 +37,8 @@
     ],
     "difficulty": {
         "Normal": {
-            "help-time-to-wait": 500,
+            "init-helps": 6,
+            "max-available-helps": 6,
             "levels": [
                 "/L-0/config.json",
                 "/L-1/config.json",
@@ -47,7 +48,8 @@
             ]
         },
         "Hard": {
-            "help-time-to-wait": 4000,
+            "init-helps": 3,
+            "max-available-helps": 5,
             "levels": [
                 "/L-2/config.json",
                 "/L-6/config.json",

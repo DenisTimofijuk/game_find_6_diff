@@ -161,7 +161,6 @@ async function loadLevel(url: string) {
         helpUser.set(pinsHandler!.getPins(0));
         
         if (diffHandler.diffs === 0) {
-            helpUser.hide();
             initNextLevelLoading();
         }
     }
@@ -197,6 +196,7 @@ async function loadLevel(url: string) {
     laodingScreen.showProgress('All done.');
         
     helpUser.set(pinsHandler!.getPins(0));
+    helpUser.initOnLevel();
     window.setTimeout(()=>{
         penelty.reset();     
         timer.start();
@@ -221,7 +221,10 @@ startButton.addEventListener('click', () => {
     document.getElementById('settings-screen')!.classList.add('visible-no');
 
     difficultyKey = difficulty.value as DifficultyName;
-    helpUser.setDellay(themeConfigData.difficulty[difficultyKey]["help-time-to-wait"]);
+    helpUser.initOnGame(
+        themeConfigData.difficulty[difficultyKey]["init-helps"],
+        themeConfigData.difficulty[difficultyKey]["max-available-helps"]
+        )
     loadLevel(themeConfigData.difficulty[difficultyKey].levels[currentProgress]);
 })
 

@@ -1,6 +1,6 @@
 import type Compositor from "./Compositor";
 
-const CLICKS_LIMIT = 3;
+const CLICKS_LIMIT = 2;
 const DELTA_TIME = 1000;
 const BLUR_LIMIT = 15;
 const VELOCITY = 0.2;
