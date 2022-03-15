@@ -6,10 +6,10 @@ export default class LoaderIndicator {
     line: number;
     y: number;
     x: number;
-    constructor(private compositor: Compositor) {
+    constructor(private compositor: Compositor, color="red") {
         this.buffer = new Layer(compositor.screeenA.canvas.width, compositor.screeenA.canvas.height);
         this.line = 1;
-        this.buffer.ctx.fillStyle = "red";
+        this.buffer.ctx.fillStyle = color;
         this.buffer.ctx.textAlign = "center";
         this.y = this.buffer.canv.height / 4;
         this.x = this.buffer.canv.width / 2;

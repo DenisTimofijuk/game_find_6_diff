@@ -1,9 +1,11 @@
+import type Compositor from "../Compositor";
+import LoaderIndicator from "../LoaderIndicator";
 import { GameAudio } from "../AudioBoard";
 
 export default <AnimationFunction>async function (levelData: {
     init: number;
     diffs: number;
-}, images: HTMLImageElement[], compositor: GameCompositor, pinsHandler: PinsHandlerClass) {
+}, images: HTMLImageElement[], compositor: Compositor, pinsHandler: PinsHandlerClass) {
     const maxHeight = 30;
     const period = 50;
     const amplifier = 20;
@@ -16,10 +18,11 @@ export default <AnimationFunction>async function (levelData: {
     const screen_a = compositor.screeenA;
     const screen_b = compositor.screeenB;
     const myAudio = new GameAudio();
-    await myAudio.load('/L-1/audio/ufo1.mp3');
-    myAudio.audio.volume = 0.1;
-    const updatediffIndi = new Event('updatediffIndi');
 
+    myAudio.load('/L-1/audio/ufo1.mp3').then(()=>{
+        myAudio.audio.volume = 0.1;
+    })
+    const updatediffIndi = new Event('updatediffIndi');
 
     function flyship(deltaTime: number) {
         if (!animationEnabled) {

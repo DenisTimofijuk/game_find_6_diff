@@ -4,9 +4,6 @@ export default <AnimationFunction>async function (levelData: {
     init: number;
     diffs: number;
 }, images: HTMLImageElement[], compositor: GameCompositor, pinsHandler: PinsHandlerClass) {
-    // await new Promise((resolve, reject)=>{
-    //     resolve(true);
-    // });
     const w = compositor.screeenA.canvas.width;
     const h = compositor.screeenA.canvas.height;
     const mainLayer = new Layer(w, h);

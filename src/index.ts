@@ -13,6 +13,9 @@ import Timer from "./Timer";
 import Vortex from "./Vortex";
 import Penelty from "./penelty";
 import LoaderIndicator from "./LoaderIndicator";
+import { handleIntroScreen } from "./game-intro";
+
+handleIntroScreen();
 
 const DEBUGG = /localhost/.test(window.location.href);
 const difficulty = document.getElementById('difficulty') as HTMLSelectElement;

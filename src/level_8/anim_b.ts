@@ -10,8 +10,9 @@ export default <AnimationFunction>async function (levelData: {
     const bufferLayer = new Layer(w, h);
 
     const audio = new GameAudio();
-    await audio.load('/L-8/audio/light.ogg');
-    audio.audio.volume = 0.4;
+    audio.load('/L-8/audio/light.ogg').then(()=>{
+        audio.audio.volume = 0.4;
+    });    
 
     const light = initLightening(bufferLayer, images[3], images[4], audio);
 
