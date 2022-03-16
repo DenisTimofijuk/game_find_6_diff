@@ -27,11 +27,4 @@ export default class GameScreen {
     initBuffer(img:HTMLImageElement){
         this.bufferCtx.drawImage(img, 0, 0);
     }
-
-    // inidcateLoading(){
-    //     this.bufferCtx.font = "60px Comic Sans MS";
-    //     this.bufferCtx.fillStyle = "red";
-    //     this.bufferCtx.textAlign = "center";
-    //     this.bufferCtx.fillText("Loading...", this.buffer.width/2, this.buffer.height/2);
-    // }
 }

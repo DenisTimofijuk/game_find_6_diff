@@ -171,6 +171,7 @@ async function loadLevel(url: string) {
     loadHanlder = function () {
         if (themeConfigData.difficulty[difficultyKey].levels[currentProgress]) {
             backgroundMusic.forEach(music => music.stop());
+            penelty.reset();
             timer.stop();
             // @ts-ignore
             pinsHandler = null;

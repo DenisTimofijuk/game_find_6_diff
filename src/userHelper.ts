@@ -92,8 +92,6 @@ export default class UserHelper {
     }
 
     initOnLevel(){
-        console.log(this.clicksPerLevel);
-
         if(this.clicksPerLevel === 0){
             this.addHelp();
         }else{

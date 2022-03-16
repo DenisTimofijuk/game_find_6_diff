@@ -1,9 +1,5 @@
 {
     "name": "Intro",
-    "data":{
-        "a": "",
-        "b": ""
-    },
     "images": [
         "/L-0/img/a.png",
         "/L-0/img/b.png"
