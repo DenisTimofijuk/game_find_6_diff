@@ -18,7 +18,6 @@
         336,298,83,55
     ],
     "totalDiffs": 5,
-    "next-level": "/L-2/config.json",
     "animations": [
         "level_1/anim_a.js",
         "level_1/anim_b.js"

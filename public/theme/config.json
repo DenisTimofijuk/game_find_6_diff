@@ -51,6 +51,7 @@
             "init-helps": 3,
             "max-available-helps": 5,
             "levels": [
+                "/L-9/config.json",
                 "/L-2/config.json",
                 "/L-6/config.json",
                 "/L-8/config.json"
